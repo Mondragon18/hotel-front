@@ -24,6 +24,8 @@ import { HeaderComponent } from './layouts/full/header/header.component';
 import { BrandingComponent } from './layouts/full/sidebar/branding.component';
 import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.component';
 import { AuthenticationModule } from './views/authentication/authentication.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -45,8 +47,12 @@ import { AuthenticationModule } from './views/authentication/authentication.modu
     MaterialModule,
     AuthenticationModule,
     TablerIconsModule.pick(TablerIcons),
+    MatDialogModule
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],
+  providers: [
+    provideAnimationsAsync()
+  ],
 })
 export class AppModule {}

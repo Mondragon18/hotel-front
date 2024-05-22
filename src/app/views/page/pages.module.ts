@@ -14,6 +14,7 @@ import { UsuarioComponent } from './usuario/usuario.component';
 import { HotelesComponent } from './hoteles/hoteles.component';
 import { HotelesService } from 'src/app/core/services/hoteles.service';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -25,11 +26,14 @@ import { MatCardModule } from '@angular/material/card';
     ReactiveFormsModule,
     TablerIconsModule.pick(TablerIcons),
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule 
   ],
   declarations: [
     UsuarioComponent,
     HotelesComponent,
+    
+    
   ],
   exports: [
     TablerIconsModule,

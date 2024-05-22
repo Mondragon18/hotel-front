@@ -1,4 +1,15 @@
-
+// Definición de la interfaz para una habitación
+export interface Habitacion {
+  id: number;
+  hotel_id: number;
+  tipo: string;
+  descripcion : string;
+  costo_base: string;
+  impuestos: string;
+  activo: number;
+  created_at: string;
+  updated_at: string;
+} 
 export interface Hotel {
   id: number;
   nombre: string;
@@ -8,14 +19,15 @@ export interface Hotel {
   pais: string;
   telefono: string;
   email: string;
-  clasificacion: string;
-  servicios: string[];
-  descripcion: string;
-  fecha_apertura: string;
-  pagina_web: string;
-  imagenes: string[];
+  clasificacion?: string;
+  servicios?: Servicios[];
+  descripcion?: string;
+  fecha_apertura?: string;
+  pagina_web?: string;
+  imagenes?: string[];
   activo: number;
-  habitaciones_count: number;
+  habitaciones_count?: number;
+  habitaciones?: Habitacion[]; // Array de habitaciones
 }
 
 export interface Link {
@@ -38,4 +50,9 @@ export interface PaginatedResponse<T> {
   prev_page_url: string | null;
   to: number;
   total: number;
+}
+
+export interface Servicios {
+  id: number;
+  nombre: string;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hotel } from 'src/app/core/models/hoteles.models';
 import { HotelesService } from 'src/app/core/services/hoteles.service';
+import * as Toastify from 'toastify-js';
 
 @Component({
   selector: 'app-hoteles',
@@ -16,9 +17,8 @@ export class HotelesComponent  implements OnInit {
   totalItems: number = 0;
   pageNumbers: number[] = [];
 
-
   constructor(
-    private HotelesService:  HotelesService
+    private hotelesService:  HotelesService
   ){}
 
   ngOnInit(): void {
@@ -26,7 +26,7 @@ export class HotelesComponent  implements OnInit {
   }
 
   private loadHoteles(page: number = 1): void {
-    this.HotelesService.getHotels(page).subscribe(response => {
+    this.hotelesService.getHotels(page).subscribe(response => {
       this.hoteles = response.data;
       this.currentPage = response.current_page;
       this.totalPages = response.last_page;
@@ -53,5 +53,23 @@ export class HotelesComponent  implements OnInit {
     }
   }
 
+  deleteHotel(id: number): void {
+    this.hotelesService.deleteHotel(id).subscribe(hotel => {
+      this.showSuccessToast("Hotel eliminado con éxito");
+      this.loadHoteles();
+    })
+  }
 
+  private showSuccessToast(message: string): void {
+    Toastify({
+      text: message,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus : true,
+      style: {
+        background: "#21998b",
+      }
+    }).showToast();
+  }
 }

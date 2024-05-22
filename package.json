@@ -27,6 +27,7 @@
     "ng-apexcharts": "1.10.0",
     "rxjs": "~7.8.1",
     "sweetalert2": "^11.11.0",
+    "toastify-js": "^1.12.0",
     "tslib": "^2.6.2",
     "zone.js": "~0.14.5"
   },
@@ -35,6 +36,7 @@
     "@angular/cli": "~17.3.6",
     "@angular/compiler-cli": "^17.3.7",
     "@types/jasmine": "~5.1.4",
+    "@types/toastify-js": "^1.12.3",
     "jasmine-core": "~5.1.2",
     "karma": "~6.4.3",
     "karma-chrome-launcher": "~3.2.0",

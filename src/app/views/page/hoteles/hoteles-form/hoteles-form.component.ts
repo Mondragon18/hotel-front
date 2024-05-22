@@ -6,7 +6,7 @@ import { CommonModule, NumberSymbol } from '@angular/common';
 import { ServiciosService } from 'src/app/core/services/servicios.service';
 import { Servicios } from 'src/app/core/models/servicios.models';
 import { MatCardModule } from '@angular/material/card';
-
+import * as Toastify from 'toastify-js';
 
 @Component({
   selector: 'app-hoteles-form',
@@ -113,10 +113,12 @@ export class HotelesFormComponent implements OnInit {
 
     if (this.hotelId){
       this.hotelesService.updateHotel(this.hotelId, datosFormulario).subscribe(hotel => {
+        this.showSuccessToast("Hotel actualizado con éxito");
         this.router.navigateByUrl('/hoteles');
       }) 
     } else {
       this.hotelesService.createHotel(datosFormulario).subscribe(hotel => {
+        this.showSuccessToast("Hotel agregado con éxito");
         this.router.navigateByUrl('/hoteles');
       })
     }
@@ -152,20 +154,33 @@ export class HotelesFormComponent implements OnInit {
 
     if(this.hotelId) {
       this.hotelesService.getHotel(this.hotelId).subscribe(hotel => {
-        const serviciosSeleccionados = JSON.parse(hotel.servicios); 
+        // const serviciosSeleccionados = JSON.parse(hotel.servicios); 
 
         this.hotelForm.patchValue({
           ...hotel,
-          servicios: serviciosSeleccionados
+          // ervicios: serviciosSeleccionados
         });
   
         // Actualizar los servicios seleccionados en la lista local
-        this.serviciosSeleccionados = serviciosSeleccionados;
+        // this.serviciosSeleccionados = serviciosSeleccionados;
       })
     }
   }
 
   isServicioSelected(servicioId: string): boolean {
     return this.serviciosSeleccionados.some(servicio => servicio.id === servicioId);
+  }
+
+  private showSuccessToast(message: string): void {
+    Toastify({
+      text: message,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus : true,
+      style: {
+        background: "#189586",
+      }
+    }).showToast();
   }
 }

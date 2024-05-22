@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-between">
+  <h2 mat-dialog-title class="mb-0">{{ getFormTitle() }}</h2>
+  <mat-dialog-actions class="pe-3">
+    <button mat-button (click)="onClose()" class="btn-close"></button>
+  </mat-dialog-actions>
+</div>
+<form [formGroup]="habitacionForm"  (ngSubmit)="saveHabitacion()">
+  <mat-dialog-content>
+    <div class="row">
+      <div class="col-6 form-group">
+        <label for="tipo">Tipo:</label>
+        <input type="text" class="form-control" id="tipo" formControlName="tipo">
+      </div>
+      <div class="col-6 form-check align-self-center">
+        <input class="form-check-input" formControlName="activo" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          Disponible
+        </label>
+      </div>
+      <div class="col-6 form-group">
+        <label for="costo_base">Costo Base:</label>
+        <input type="number" class="form-control" id="costo_base" formControlName="costo_base">
+      </div>
+      <div class="col-6 form-group">
+        <label for="impuestos">Impuestos:</label>
+        <input type="number" class="form-control" id="impuestos" formControlName="impuestos">
+      </div>
+      <div class="col-12 form-group">
+        <label for="descripcion">Descripción:</label>
+        <textarea class="form-control" id="descripcion" formControlName="descripcion"></textarea>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="px-4">
+    <button mat-button (click)="onClose()"  class="btn btn-secondary btn-sm">Cerrar</button>
+    <button mat-button  class="btn btn-primary btn-sm" type="submit" [disabled]="habitacionForm.invalid">Guardar</button>
+  </mat-dialog-actions>
+</form>
