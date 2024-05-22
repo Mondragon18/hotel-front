@@ -1,0 +1,15 @@
+
+<div class="row">
+  <!-- --------------------------------------------------------------------------- -->
+  <!-- Sales Overview -->
+  <!-- --------------------------------------------------------------------------- -->
+  <div class="col-lg-8">
+    <p>usuario</p>
+
+    <ng-container *ngIf="usuarios.length;" else emptyMessage>
+      <div *ngFor="let usuario of usuarios">
+        {{ usuario.id }}
+      </div>
+    </ng-container>
+  </div>
+</div> 

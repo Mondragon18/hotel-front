@@ -1,0 +1,82 @@
+<div>
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>Hoteles</h2>
+    <a routerLink="/hoteles/crear" class="btn btn-primary btn-sm">Registrar hotel</a>
+  </div>
+</div>
+<div *ngIf="hoteles.length > 0; else noHotels">
+
+  <div class="row">
+    <div *ngFor="let hotel of hoteles" class="col-3 ps-1 pe-1 mb-2">
+      <div class="card ">
+        <img src="https://th.bing.com/th/id/OIP.yBzy15rlMLEfll12IeotogHaE8?rs=1&pid=ImgDetMain" class="card-img-top"
+          alt="...">
+        <div class="card-body">
+          <h6 class="card-title">{{ hotel.nombre }}</h6>
+          <p>{{ hotel.clasificacion }} estrellas </p>
+          <div class="d-flex justify-content-end align-items-center gap-2">
+
+            <a [routerLink]="['/hoteles', hotel.id, 'editar']">
+              <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20">
+                <path d="M18.656.93,6.464,13.122A4.966,4.966,0,0,0,5,16.657V18a1,1,0,0,0,1,1H7.343a4.966,4.966,0,0,0,3.535-1.464L23.07,5.344a3.125,3.125,0,0,0,0-4.414A3.194,3.194,0,0,0,18.656.93Zm3,3L9.464,16.122A3.02,3.02,0,0,1,7.343,17H7v-.343a3.02,3.02,0,0,1,.878-2.121L20.07,2.344a1.148,1.148,0,0,1,1.586,0A1.123,1.123,0,0,1,21.656,3.93Z" />
+                <path d="M23,8.979a1,1,0,0,0-1,1V15H18a3,3,0,0,0-3,3v4H5a3,3,0,0,1-3-3V5A3,3,0,0,1,5,2h9.042a1,1,0,0,0,0-2H5A5.006,5.006,0,0,0,0,5V19a5.006,5.006,0,0,0,5,5H16.343a4.968,4.968,0,0,0,3.536-1.464l2.656-2.658A4.968,4.968,0,0,0,24,16.343V9.979A1,1,0,0,0,23,8.979ZM18.465,21.122a2.975,2.975,0,0,1-1.465.8V18a1,1,0,0,1,1-1h3.925a3.016,3.016,0,0,1-.8,1.464Z" />
+              </svg>
+            </a>
+            <div class="">
+              <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20">
+                <path d="M21,4H17.9A5.009,5.009,0,0,0,13,0H11A5.009,5.009,0,0,0,6.1,4H3A1,1,0,0,0,3,6H4V19a5.006,5.006,0,0,0,5,5h6a5.006,5.006,0,0,0,5-5V6h1a1,1,0,0,0,0-2ZM11,2h2a3.006,3.006,0,0,1,2.829,2H8.171A3.006,3.006,0,0,1,11,2Zm7,17a3,3,0,0,1-3,3H9a3,3,0,0,1-3-3V6H18Z" />
+                <path d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18Z" />
+                <path d="M14,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z" />
+              </svg>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <ul>
+    <li >
+      <h3></h3>
+      <p>{{ hotel.direccion }}, {{ hotel.ciudad }}, {{ hotel.provincia_estado }}, {{ hotel.pais }}</p>
+      <p>Teléfono: {{ hotel.telefono }}</p>
+      <p>Email: {{ hotel.email }}</p>
+      <p>Clasificación: {{ hotel.clasificacion }}</p>
+      <p>Descripción: {{ hotel.descripcion }}</p>
+      <p>Página Web: <a [href]="hotel.pagina_web" target="_blank">{{ hotel.pagina_web }}</a></p>
+    </li>
+  </ul> -->
+
+
+  <nav class="d-flex justify-content-between align-items-center">
+    <span>Página {{ currentPage }} de {{ totalPages }}</span>
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        <button class="page-link" href="#" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">
+          <svg viewBox="0 0 24 24" width="10" height="10">
+            <path
+              d="M17.17,24a1,1,0,0,1-.71-.29L8.29,15.54a5,5,0,0,1,0-7.08L16.46.29a1,1,0,1,1,1.42,1.42L9.71,9.88a3,3,0,0,0,0,4.24l8.17,8.17a1,1,0,0,1,0,1.42A1,1,0,0,1,17.17,24Z" />
+          </svg>
+
+        </button>
+      </li>
+      <li class="page-item" *ngFor="let page of pageNumbers" [class.active]="currentPage === page">
+        <button class="page-link" (click)="goToPage(page)" [disabled]="currentPage === page">
+          {{ page }}
+        </button>
+      </li>
+      <li class="page-item">
+        <button class="page-link" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
+          <svg viewBox="0 0 24 24" width="10" height="10">
+            <path
+              d="M7,24a1,1,0,0,1-.71-.29,1,1,0,0,1,0-1.42l8.17-8.17a3,3,0,0,0,0-4.24L6.29,1.71A1,1,0,0,1,7.71.29l8.17,8.17a5,5,0,0,1,0,7.08L7.71,23.71A1,1,0,0,1,7,24Z" />
+          </svg>
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+</div>
+<ng-template #noHotels>
+  <p>No hay hoteles disponibles.</p>
+</ng-template>
