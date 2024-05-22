@@ -16,7 +16,7 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './hoteles-form.component.scss'
 })
 export class HotelesFormComponent implements OnInit {
-  
+
   serviciosSeleccionados: { id: string, nombre: string }[] = [];
   services: Servicios[] = [];
   selectedImages: File[] = [];
@@ -63,7 +63,7 @@ export class HotelesFormComponent implements OnInit {
   //   this.selectedImages = event.target.files[0];
 
   //   console.log(this.selectedImages.values);
-    
+
   // }
 
   // Método para obtener la URL de una imagen seleccionada
@@ -89,15 +89,15 @@ export class HotelesFormComponent implements OnInit {
 
   actualizarServicios(servicioSeleccionado: { id: string, nombre: string }) {
     const index = this.serviciosSeleccionados.findIndex(servicio => servicio.id === servicioSeleccionado.id);
-    
+
     if (index === -1) {
       this.serviciosSeleccionados.push(servicioSeleccionado);
     } else {
       this.serviciosSeleccionados.splice(index, 1);
     }
-  
+
     this.hotelForm.get('servicios')?.setValue(this.serviciosSeleccionados);
-  
+
     console.log(this.hotelForm.value);
   }
 
@@ -114,7 +114,7 @@ export class HotelesFormComponent implements OnInit {
     if (this.hotelId){
       this.hotelesService.updateHotel(this.hotelId, datosFormulario).subscribe(hotel => {
         this.router.navigateByUrl('/hoteles');
-      }) 
+      })
     } else {
       this.hotelesService.createHotel(datosFormulario).subscribe(hotel => {
         this.router.navigateByUrl('/hoteles');
@@ -139,7 +139,7 @@ export class HotelesFormComponent implements OnInit {
 
     if(!errors)
         return '';
-      
+
     return errors[0];
   }
 
@@ -149,18 +149,20 @@ export class HotelesFormComponent implements OnInit {
 
   private loadDataIntoForm(): void{
     this.hotelId = Number(this.route.snapshot.paramMap.get('id'));
+    console.log('alex: ');
 
     if(this.hotelId) {
       this.hotelesService.getHotel(this.hotelId).subscribe(hotel => {
-        const serviciosSeleccionados = JSON.parse(hotel.servicios); 
+        if(hotel.servicios != undefined &&  Array.isArray(hotel.servicios)) {
+          // const serviciosSeleccionados = JSON.parse(hotel.servicios);
+          this.hotelForm.patchValue({
+            ...hotel,
+            // servicios: serviciosSeleccionados
+          });
+        }
 
-        this.hotelForm.patchValue({
-          ...hotel,
-          servicios: serviciosSeleccionados
-        });
-  
-        // Actualizar los servicios seleccionados en la lista local
-        this.serviciosSeleccionados = serviciosSeleccionados;
+        // // Actualizar los servicios seleccionados en la lista local
+        // this.serviciosSeleccionados = serviciosSeleccionados;
       })
     }
   }

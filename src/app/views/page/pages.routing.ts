@@ -4,12 +4,13 @@ import { HabitacionesComponent } from './habitaciones/habitaciones.component';
 import { ReservasComponent } from './reservas/reservas.component';
 import { HotelesComponent } from './hoteles/hoteles.component';
 import { HotelesFormComponent } from './hoteles/hoteles-form/hoteles-form.component';
+import { ClasificacionHotelesComponent } from './clasificacion-hoteles/clasificacion-hoteles.component';
 // import { AppDashboardComponent } from './dashboard/dashboard.component';
 
 
 export const PagesRoutes: Routes = [
 
-  {  
+  {
     path: '',
     children: [
       {
@@ -36,6 +37,15 @@ export const PagesRoutes: Routes = [
             component: HabitacionesComponent,
           },
         ],
+      },
+      {
+          path:'calificacion_hoteles',
+          children: [
+            {
+              path: '',
+              component: ClasificacionHotelesComponent,
+            },
+          ]
       },
       {
         path: 'reservas',
