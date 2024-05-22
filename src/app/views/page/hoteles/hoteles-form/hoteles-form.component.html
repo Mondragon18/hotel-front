@@ -40,9 +40,9 @@
             <span *ngSwitchCase="'required'">El campo direccion es requerido</span>
           </div>
         </div>
-        
-        
-        
+
+
+
         <div class="col-4 mb-2">
           <label for="telefono">Teléfono:</label>
           <input class="form-control  {{ hasError('telefono') ? 'is-invalid' : ''}}" id="telefono" formControlName="telefono" type="text">
@@ -50,7 +50,7 @@
             <span *ngSwitchCase="'required'">El campo telefono es requerido</span>
           </div>
         </div>
-       
+
         <div class="col-4 mb-2">
           <label for="clasificacion">Clasificación:</label>
           <input class="form-control" id="clasificacion" formControlName="clasificacion" type="text">
@@ -64,7 +64,7 @@
         <div class="col-12 mb-2" formArrayName="servicios" *ngIf="services.length > 0; else noServicios">
           <label>Servicios:</label>
           <div class="d-flex flex-wrap gap-2">
-            <div *ngFor="let servicio of services" class="form-check">
+            <div *ngFor="let servicio of services ?? []" class="form-check">
               <input class="form-control" type="checkbox" class="form-check-input" id="servicio{{ servicio.id }}" (change)="actualizarServicios({ id: servicio.id, nombre: servicio.nombre })">
               <label class="form-check-label" for="servicio{{ servicio.id }}">
                 {{ servicio.nombre }}
@@ -80,7 +80,7 @@
           <label for="descripcion">Descripción:</label>
           <textarea class="form-control" id="descripcion" formControlName="descripcion"></textarea>
         </div>
-        
+
         <div class="col-12 mb-2">
           <label for="pagina_web">Página Web:</label>
           <input class="form-control" id="pagina_web" formControlName="pagina_web" type="url">
@@ -98,18 +98,18 @@
         <div class="col-12">
 
           <!-- <input type="file" (change)="onFileSelected($event)" multiple>
-  
+
           <div *ngIf="selectedImages.length > 0" class="preview-image">
             <img *ngFor="let image of selectedImages" [src]="getImageSrc(image)" alt="Vista previa de la imagen">
           </div> -->
         </div>
 
-       
-        
+
+
         <div class="col-12 mb-2 d-flex justify-content-end gap-2">
           <a routerLink="/hoteles" class="btn btn-secondary btn-sm">Cancelar</a>
           <button class="btn btn-primary btn-sm" type="submit" [disabled]="hotelForm.invalid">Guardar</button>
         </div>
     </form>
   </mat-card-content>
-</mat-card> 
+</mat-card>

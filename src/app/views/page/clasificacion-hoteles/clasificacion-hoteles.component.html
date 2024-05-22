@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-6 d-flex my-2">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-filter float-end"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z"></path></svg>
+    <span>Filtrar por campos</span>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control {{ hasError('search') ? 'is-invalid' : ''}}" id="search" formControlName="search" type="text" />
+        <span class="input-group-text">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+            <path d="M21 21l-6 -6"></path>
+          </svg>
+        </span>
+      </div>
+      <!-- <div *ngIf="hasError('search')" class="invalid-feedback">
+        El campo nombre es requerido
+      </div> -->
+    </div>
+  </div>
+  <div class="col-3">
+    <label for="fecha_entrada">Fecha entrada:</label>
+    <input class="form-control  {{ hasError('fecha_entrada') ? 'is-invalid' : ''}}" id="fecha_entrada" formControlName="fecha_entrada"  type="date" />
+    <!-- <div class="invalid-feedback" *ngIf="hasError('search')">
+      <span *ngSwitchCase="'required'">El campo fecha entrada es requerido</span>
+    </div> -->
+  </div>
+  <div class="col-3">
+    <label for="fecha_salida">Fecha salida:</label>
+    <input class="form-control  {{ hasError('fecha_salida') ? 'is-invalid' : ''}}" id="fecha_salida" formControlName="fecha_salida"  type="date" />
+    <!-- <div class="invalid-feedback" *ngIf="hasError('fecha_salida')">
+      <span *ngSwitchCase="'required'">El campo fecha salida es requerido</span>
+    </div> -->
+  </div>
+  <div class="col-3">
+    <label for="huespedes">Numero de huespedes:</label>
+    <input class="form-control  {{ hasError('huespedes') ? 'is-invalid' : ''}}" id="huespedes" formControlName="huespedes"  type="number" />
+    <!-- <div class="invalid-feedback" *ngIf="hasError('huespedes')">
+      <span *ngSwitchCase="'required'">El campo numero de huespedes es requerido</span>
+    </div> -->
+  </div>
+
+  <div class="col-3">
+    <label for="ciudad">Ciudad:</label>
+    <select class="form-control {{ hasError('ciudad') ? 'is-invalid' : ''}}" id="ciudad" formControlName="ciudad">
+      <option value="">Seleccionar ciudad</option>
+      <option value="1">Ciudad 1</option>
+      <option value="2">Ciudad 2</option>
+      <option value="3">Ciudad 3</option>
+      <!-- Agrega más opciones según sea necesario -->
+    </select>
+    <!-- <div class="invalid-feedback" *ngIf="hasError('ciudad')">
+      <span *ngSwitchCase="'required'">El campo Ciudad es requerido</span>
+      Agrega más mensajes de error según sea necesario
+    </div> -->
+  </div>
+
+
+  <div class="col-12 row m-0 p-0">
+    <div *ngFor="let hotel of hoteles" class="col-3 mx-auto my-2">
+      <div class="card ">
+        <img src="https://th.bing.com/th/id/OIP.yBzy15rlMLEfll12IeotogHaE8?rs=1&pid=ImgDetMain" class="card-img-top"
+          alt="...">
+        <div class="card-body">
+          <h6 class="card-title">{{ hotel.nombre }}</h6>
+          <div>
+            <span *ngFor="let estrella of [1, 2, 3, 4, 5]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-star" >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+              </svg>
+            </span>
+          </div>
+          <p>{{ hotel.clasificacion }} estrellas </p>
+          <div class="d-flex justify-content-end align-items-center gap-2">
+            Reservar
+            <a >
+              <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20">
+                <path d="M18.656.93,6.464,13.122A4.966,4.966,0,0,0,5,16.657V18a1,1,0,0,0,1,1H7.343a4.966,4.966,0,0,0,3.535-1.464L23.07,5.344a3.125,3.125,0,0,0,0-4.414A3.194,3.194,0,0,0,18.656.93Zm3,3L9.464,16.122A3.02,3.02,0,0,1,7.343,17H7v-.343a3.02,3.02,0,0,1,.878-2.121L20.07,2.344a1.148,1.148,0,0,1,1.586,0A1.123,1.123,0,0,1,21.656,3.93Z" />
+                <path d="M23,8.979a1,1,0,0,0-1,1V15H18a3,3,0,0,0-3,3v4H5a3,3,0,0,1-3-3V5A3,3,0,0,1,5,2h9.042a1,1,0,0,0,0-2H5A5.006,5.006,0,0,0,0,5V19a5.006,5.006,0,0,0,5,5H16.343a4.968,4.968,0,0,0,3.536-1.464l2.656-2.658A4.968,4.968,0,0,0,24,16.343V9.979A1,1,0,0,0,23,8.979ZM18.465,21.122a2.975,2.975,0,0,1-1.465.8V18a1,1,0,0,1,1-1h3.925a3.016,3.016,0,0,1-.8,1.464Z" />
+              </svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
