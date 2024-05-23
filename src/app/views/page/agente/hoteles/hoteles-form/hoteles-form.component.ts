@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HotelesService } from '../../../../core/services/hoteles.service';
+import { HotelesService } from '../../../../../core/services/hoteles.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule, NumberSymbol } from '@angular/common';
 import { ServiciosService } from 'src/app/core/services/servicios.service';

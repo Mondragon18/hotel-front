@@ -1,15 +1,14 @@
 import { Routes } from '@angular/router';
-import { UsuarioComponent } from './usuario/usuario.component';
-import { HabitacionesComponent } from './hoteles/habitaciones/habitaciones.component';
-import { ReservasComponent } from './reservas/reservas.component';
-import { HotelesComponent } from './hoteles/hoteles.component';
-import { HotelesFormComponent } from './hoteles/hoteles-form/hoteles-form.component';
+import { UsuarioComponent } from './agente/usuario/usuario.component';
+import { ReservasComponent } from './agente/reservas/reservas.component';
 import { ClasificacionHotelesComponent } from './clasificacion-hoteles/clasificacion-hoteles.component';
-// import { AppDashboardComponent } from './dashboard/dashboard.component';
+import { HotelesComponent } from './agente/hoteles/hoteles.component';
+import { HotelesFormComponent } from './agente/hoteles/hoteles-form/hoteles-form.component';
+import { HabitacionesComponent } from './agente/hoteles/habitaciones/habitaciones.component';
+
 
 
 export const PagesRoutes: Routes = [
-
   {
     path: '',
     children: [

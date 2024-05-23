@@ -8,7 +8,7 @@ export interface Habitacion {
   activo: boolean;
   created_at: string;
   updated_at: string;
-} 
+}
 
 export interface PaginatedResponse<T> {
   current_page: number;
