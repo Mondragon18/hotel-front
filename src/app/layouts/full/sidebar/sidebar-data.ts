@@ -11,18 +11,23 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'Hoteles',
-    iconName: 'rosette',
+    iconName: 'building-skyscraper',
     route: '/hoteles',
   },
   {
     displayName: 'Habitaciones',
-    iconName: 'poker-chip',
+    iconName: 'armchair',
     route: '/hoteles/habitaciones',
   },
   {
-    displayName: 'Pasajeros',
-    iconName: 'list',
-    route: '/pasajeros',
+    displayName: 'Reservas',
+    iconName: 'adjustments-heart',
+    route: '/reservas',
+  }, 
+  {
+    displayName: 'Clasificacion Hotelera',
+    iconName: 'building-skyscraper',
+    route: '/calificacion_hoteles',
   },
   {
     displayName: 'Dashboard',
