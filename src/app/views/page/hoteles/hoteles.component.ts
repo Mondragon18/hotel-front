@@ -8,7 +8,7 @@ import * as Toastify from 'toastify-js';
   templateUrl: './hoteles.component.html',
   styleUrl: './hoteles.component.scss'
 })
-export class HotelesComponent  implements OnInit { 
+export class HotelesComponent  implements OnInit {
 
   hoteles: Hotel[] = [];
   currentPage: number = 1;
@@ -46,7 +46,7 @@ export class HotelesComponent  implements OnInit {
     const pageCount = 5; // Number of page links to show
     const startPage = Math.max(this.currentPage - Math.floor(pageCount / 2), 1);
     const endPage = Math.min(startPage + pageCount - 1, this.totalPages);
-    
+
     this.pageNumbers = [];
     for (let i = startPage; i <= endPage; i++) {
       this.pageNumbers.push(i);
@@ -56,6 +56,15 @@ export class HotelesComponent  implements OnInit {
   deleteHotel(id: number): void {
     this.hotelesService.deleteHotel(id).subscribe(hotel => {
       this.showSuccessToast("Hotel eliminado con éxito");
+      this.loadHoteles();
+    })
+  }
+
+  statusHotel(id: number, status: number): void {
+    status = (status == 1) ? 0 : 1;
+
+    this.hotelesService.changeStatusHotel(id, status).subscribe(hotel => {
+      this.showSuccessToast((status == 1) ? 'Hotel activo con éxito' : 'Hotel desactivado con éxito');
       this.loadHoteles();
     })
   }

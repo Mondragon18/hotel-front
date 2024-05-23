@@ -7,11 +7,12 @@ import { ModalComponent } from '../modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import * as Toastify from 'toastify-js';
 import { HabitacionesService } from 'src/app/core/services/habitaciones.service';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-habitaciones',
   standalone: true,
-  imports: [CommonModule, RouterModule, ModalComponent],
+  imports: [CommonModule, RouterModule, ModalComponent, MatChipsModule],
   templateUrl: './habitaciones.component.html',
   styleUrl: './habitaciones.component.scss'
 })
@@ -36,7 +37,7 @@ export class HabitacionesComponent implements OnInit  {
 
   private getHotel(): void {
     this.hotelId = Number(this.route.snapshot.paramMap.get('id'));
-  
+
     if (this.hotelId) {
       this.hotelesService.getHotel(this.hotelId).subscribe(response => {
         this.hotel = response;
@@ -50,7 +51,7 @@ export class HabitacionesComponent implements OnInit  {
   openModal(habitacionId?:number): void {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '50%', // Ajusta el ancho del modal
-      height: '50%', // Ajusta la altura del modal
+      height: 'auto', // Ajusta la altura del modal
       data: { hotelId: this.hotelId, habitacionId: habitacionId }
     });
 
@@ -63,6 +64,15 @@ export class HabitacionesComponent implements OnInit  {
   deleteHabitacion(id: number): void {
     this.habitacionesService.deleteHabitacion(id).subscribe(hotel => {
       this.showSuccessToast("Habitacion eliminado con éxito");
+      this.getHotel();
+    })
+  }
+
+  statusHotel(id: number, status: number): void {
+    status = (status == 1) ? 0 : 1;
+
+    this.habitacionesService.changeStatusHabitacion(id, status).subscribe(habitacion => {
+      this.showSuccessToast((status == 1) ? 'Habitacion activo con éxito' : 'Habitacion desactivado con éxito');
       this.getHotel();
     })
   }

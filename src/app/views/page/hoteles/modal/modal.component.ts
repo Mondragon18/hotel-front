@@ -23,9 +23,9 @@ export class ModalComponent {
     hotel_id: new FormControl(this.data.hotelId, [Validators.required]),
     tipo: new FormControl('', [Validators.required]),
     descripcion: new FormControl(''),
-    costo_base: new FormControl('', [ Validators.required, Validators.pattern(/^[0-9]+$/), ]),
-    impuestos: new FormControl('', [ Validators.required, Validators.pattern(/^[0-9]+$/),]),
-    activo: new FormControl(false, [Validators.required]),
+    costo_base: new FormControl('', [ Validators.required]),
+    impuestos: new FormControl('', [ Validators.required]),
+    activo: new FormControl(false),
   });
 
   constructor(
@@ -40,8 +40,7 @@ export class ModalComponent {
   }
 
   ngOnInit() {
-    console.log(this.data.hotelId); // Aquí puedes utilizar el ID del hotel
-    console.log(this.data.habitacionId); // Aquí puedes utilizar el ID del habitacionId
+    this.loadDataIntoForm();
   }
 
   saveHabitacion(): void {
@@ -49,7 +48,7 @@ export class ModalComponent {
       this.habitacionesService.updateHabitacion(this.data.habitacionId, this.habitacionForm.value).subscribe(hotel => {
         this.showSuccessToast("Habitacion actualizado con éxito");
         this.onClose();
-      }) 
+      })
     } else {
       this.habitacionesService.createHabitacion(this.habitacionForm.value).subscribe(hotel => {
         this.showSuccessToast("Habitacion agregado con éxito");
@@ -75,12 +74,23 @@ export class ModalComponent {
 
     if(!errors)
         return '';
-      
+
     return errors[0];
   }
 
   getFormTitle(): string {
     return this.data.habitacionId ? 'Editar habitación' : 'Registrar habitación';
+  }
+
+  private loadDataIntoForm(): void{
+    if (this.data.habitacionId) {
+      console.log(this.data.habitacionId);
+      this.habitacionesService.getHabitacion(this.data.habitacionId).subscribe(habitacion => {
+        this.habitacionForm.patchValue({
+          ...habitacion,
+        });
+      })
+    }
   }
 
   private showSuccessToast(message: string): void {

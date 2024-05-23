@@ -7,27 +7,38 @@
 <form [formGroup]="habitacionForm"  (ngSubmit)="saveHabitacion()">
   <mat-dialog-content>
     <div class="row">
-      <div class="col-6 form-group">
-        <label for="tipo">Tipo:</label>
-        <input type="text" class="form-control" id="tipo" formControlName="tipo">
-      </div>
-      <div class="col-6 form-check align-self-center">
-        <input class="form-check-input" formControlName="activo" type="checkbox" value="" id="flexCheckDefault">
-        <label class="form-check-label" for="flexCheckDefault">
-          Disponible
-        </label>
+      <div class="col-12 form-group">
+        <label for="tipo">Tipo*</label>
+        <input type="text" class="form-control {{ hasError('tipo') ? 'is-invalid' : ''}}" id="tipo" formControlName="tipo">
+        <div class="invalid-feedback" [ngSwitch]="getCurrentError('tipo')">
+          <span *ngSwitchCase="'required'">El campo tipo es requerido</span>
+        </div>
       </div>
       <div class="col-6 form-group">
-        <label for="costo_base">Costo Base:</label>
-        <input type="number" class="form-control" id="costo_base" formControlName="costo_base">
+        <label for="costo_base">Costo Base*</label>
+        <input type="number" class="form-control {{ hasError('costo_base') ? 'is-invalid' : ''}}" id="costo_base" formControlName="costo_base">
+        <div class="invalid-feedback" [ngSwitch]="getCurrentError('costo_base')">
+          <span *ngSwitchCase="'required'">El campo costo base es requerido</span>
+        </div>
       </div>
       <div class="col-6 form-group">
-        <label for="impuestos">Impuestos:</label>
-        <input type="number" class="form-control" id="impuestos" formControlName="impuestos">
+        <label for="impuestos">Impuestos*</label>
+        <input type="number" class="form-control {{ hasError('impuestos') ? 'is-invalid' : ''}}" id="impuestos" formControlName="impuestos">
+        <div class="invalid-feedback" [ngSwitch]="getCurrentError('impuestos')">
+          <span *ngSwitchCase="'required'">El campo impuestos es requerido</span>
+        </div>
       </div>
       <div class="col-12 form-group">
-        <label for="descripcion">Descripción:</label>
+        <label for="descripcion">Descripción</label>
         <textarea class="form-control" id="descripcion" formControlName="descripcion"></textarea>
+      </div>
+      <div class="col-6">
+        <div class="form-check">
+          <input class="form-check-input" formControlName="activo" type="checkbox" value="" id="flexCheckDefault">
+          <label class="form-check-label" for="flexCheckDefault">
+            Disponible
+          </label>
+        </div>
       </div>
     </div>
   </mat-dialog-content>
