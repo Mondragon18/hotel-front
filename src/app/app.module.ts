@@ -26,6 +26,8 @@ import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.co
 import { AuthenticationModule } from './views/authentication/authentication.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MaterialModule,
     AuthenticationModule,
     TablerIconsModule.pick(TablerIcons),
-    MatDialogModule
+    MatDialogModule,
+    NgxDatatableModule,
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

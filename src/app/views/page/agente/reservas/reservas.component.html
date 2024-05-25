@@ -1,15 +1,91 @@
-<p>reservas works!</p>
-<table id="listReservas" class="display" style="width:100%">
+<div class="container">
+  <h1 class="text-center mb-4">Reservaciones de Hotel</h1>
+
+  <div class="d-flex justify-content-end mb-3">
+    <form #searchForm="ngForm">
+
+      <label for="searchName">Buscar por nombre:</label>
+      <input type="text" id="searchName" name="searchName" [(ngModel)]="searchName" (ngModelChange)="searchReservas()">
+      
+      <label for="checkin">Fecha de entrada:</label>
+      <input type="date" id="checkin" name="checkin" [(ngModel)]="checkinDate" (ngModelChange)="searchReservas()">
+
+      <label for="checkout">Fecha de salida:</label>
+      <input type="date" id="checkout" name="checkout" [(ngModel)]="checkoutDate" (ngModelChange)="searchReservas()">
+
+      <label for="hotelState">Estado del hotel:</label>
+      <select id="hotelState" name="hotelState" [(ngModel)]="selectedHotelState" (ngModelChange)="searchReservas()">
+        <option value="">Todos</option>
+        <option value="cancelada">Cancelada</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="confirmada">Confirmada</option>
+      </select>
+    </form>
+  </div>
+
+  <table class="table table-striped">
     <thead>
-        <tr>
-            <th>habitacion_id</th>
-            <th>pasajero_id</th>
-            <th>fecha_entrada</th>
-            <th>fecha_salida</th>
-            <th>monto_total</th>
-            <th>estado</th>
-        </tr>
+      <tr>
+        <th scope="col" (click)="sortReservas('id')">ID</th>
+        <th scope="col" (click)="sortReservas('pasajero.user.nombres')">Nombre
+          
+        </th>
+        <th scope="col" (click)="sortReservas('habitacion.tipo')">Habitación</th>
+        <th scope="col" (click)="sortReservas('fecha_entrada')">Fecha de Entrada</th>
+        <th scope="col" (click)="sortReservas('fecha_salida')">Fecha de Salida</th>
+        <th scope="col" (click)="sortReservas('estado')">Estado</th>
+        <th scope="col" (click)="sortReservas('created_at')">Solicitud</th>
+        <th scope="col">Acción</th>
+      </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="reservas.length > 0; else noReservas">
+      <tr  *ngFor="let reserva of reservas">
+        <th scope="row">{{ reserva.id }}</th>
+        <td>{{ reserva.pasajero.user.nombres }} {{ reserva.pasajero.user.apellidos }}</td>
+        <td>N°{{ reserva.habitacion.id }} {{ reserva.habitacion.tipo }}</td>
+        <td>{{ reserva.fecha_entrada  | dateFormate:'humano'  }}</td>
+        <td>{{ reserva.fecha_salida  | dateFormate:'humano'  }}</td>
+        <td>{{ reserva.estado }}</td>
+        <td>{{ reserva.created_at  | dateFormate:'humanizacion'  }}</td>
+        <td class="d-flex justify-content-center">
+          <a  (click)="openModal(reserva.id)"> 
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path d="M19,2H10c-2.76,0-5,2.24-5,5v6c0,2.76,2.24,5,5,5h9c2.76,0,5-2.24,5-5V7c0-2.76-2.24-5-5-5Zm-9,2h9c1.3,0,2.4,.84,2.82,2H7.18c.41-1.16,1.51-2,2.82-2Zm9,12H10c-1.65,0-3-1.35-3-3v-5h15v5c0,1.65-1.35,3-3,3Zm-2,5c0,.55-.45,1-1,1H5c-2.76,0-5-2.24-5-5v-7.35c0-1.22,.44-2.39,1.25-3.31,.37-.41,1-.45,1.41-.09,.42,.37,.45,1,.09,1.41-.48,.55-.75,1.25-.75,1.98v7.35c0,1.65,1.35,3,3,3h11c.55,0,1,.45,1,1Z"/>
+            </svg>
+          </a>
+        </td>
+      </tr>
     </tbody>
-</table>
+    <ng-template #noReservas>
+      <p>No hay reservaciones disponibles.</p>
+    </ng-template>
+  </table>
+  
+  <nav class="d-flex justify-content-between align-items-center">
+    <span>Página {{ currentPage }} de {{ totalPages }}</span>
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        <button class="page-link" href="#" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">
+          <svg viewBox="0 0 24 24" width="10" height="10">
+            <path
+              d="M17.17,24a1,1,0,0,1-.71-.29L8.29,15.54a5,5,0,0,1,0-7.08L16.46.29a1,1,0,1,1,1.42,1.42L9.71,9.88a3,3,0,0,0,0,4.24l8.17,8.17a1,1,0,0,1,0,1.42A1,1,0,0,1,17.17,24Z" />
+          </svg>
+
+        </button>
+      </li>
+      <li class="page-item" *ngFor="let page of pageNumbers" [class.active]="currentPage === page">
+        <button class="page-link" (click)="goToPage(page)" [disabled]="currentPage === page">
+          {{ page }}
+        </button>
+      </li>
+      <li class="page-item">
+        <button class="page-link" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
+          <svg viewBox="0 0 24 24" width="10" height="10">
+            <path
+              d="M7,24a1,1,0,0,1-.71-.29,1,1,0,0,1,0-1.42l8.17-8.17a3,3,0,0,0,0-4.24L6.29,1.71A1,1,0,0,1,7.71.29l8.17,8.17a5,5,0,0,1,0,7.08L7.71,23.71A1,1,0,0,1,7,24Z" />
+          </svg>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</div>

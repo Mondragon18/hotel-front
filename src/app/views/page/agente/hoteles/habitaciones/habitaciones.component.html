@@ -1,9 +1,5 @@
-<!-- Tarjeta de Información del Hotel -->
 <div class="card border-0">
-  <!-- Imagen de Cabecera -->
-  <!-- <img src="{{ hotel?.imagenes[0] }}" class="card-img-top" alt="Imagen del Hotel"> -->
   <div class="card-body">
-    <!-- Nombre del Hotel -->
     <div class="d-flex justify-content-between">
       <div>
         <h5 class="txt-20 fw-bold card-title mb-0">{{ hotel?.nombre }}</h5>
@@ -12,14 +8,11 @@
 
       <p class="card-text"><strong>Fecha de Apertura:</strong> {{ hotel?.fecha_apertura }}</p>
     </div>
-    <!-- Dirección -->
     <div class="d-flex align-items-center gap-2">
       <p class="card-text mb-0"><strong>Dirección:</strong> {{ hotel?.direccion }}, {{ hotel?.ciudad }}, {{
         hotel?.provincia_estado }}, {{ hotel?.pais }}</p>
       <p class="card-text mb-0"><strong>Teléfono:</strong> {{ hotel?.telefono }}</p>
     </div>
-    <!-- Teléfono y Email -->
-    <!-- Clasificación -->
     <div class="d-flex gap-2">
       <p class="card-text txt-14">
         <a href="{{ hotel?.pagina_web }}" class="text-decoration-none d-flex align-items-center gap-2">
@@ -32,12 +25,6 @@
       </p>
       <p class="card-text mb-0"><strong>Clasificación:</strong> {{ hotel?.clasificacion }}</p>
     </div>
-    <!-- Servicios -->
-    <!-- <p class="card-text"><strong>Servicios:</strong></p>
-    <ul class="list-unstyled">
-      <li ><i class="fas fa-check-circle mr-2"></i></li>
-    </ul> -->
-    <!-- Descripción -->
     <p class="card-text mb-0"><strong>Descripción:</strong> </p>
     <p>{{ hotel?.descripcion }}</p>
   </div>
@@ -77,9 +64,7 @@
 </div>
 
 <section class="hero ms-3 mb-2">
-  <!-- Imagen de fondo -->
   <div class="hero-image d-flex justify-content-between align-items-center">
-    <!-- Texto Principal -->
     <h5 class="txt-18 fw-bold">Nuestras Habitaciones</h5>
     <button mat-button (click)="openModal()" class="btn rounded-pill btn-primary btn-sm gap-2">
       <svg fill="#fff" viewBox="0 0 512 512" xml:space="preserve" width="15" height="15">

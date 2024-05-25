@@ -4,8 +4,8 @@ export interface Usuarios{
   apellidos: string;
   usuario: string;
   email: string;
-  password: string;
   persona: string;
+  password?: string;
   created_at?: string;
   updated_at?: string;
 }

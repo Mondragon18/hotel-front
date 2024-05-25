@@ -1,6 +1,6 @@
 export interface ContactoEmergencia{
-  id: string;
-  reserva_id: string; 
+  id: number;
+  reserva_id: number;
   nombres: string;
   telefono: string;
   created_at?: string;
