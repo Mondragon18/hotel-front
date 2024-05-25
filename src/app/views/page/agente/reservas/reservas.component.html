@@ -1,3 +1,6 @@
+<div class="">
+
+</div>
 <div class="container">
   <h1 class="text-center mb-4">Reservaciones de Hotel</h1>
 
@@ -21,6 +24,13 @@
         <option value="confirmada">Confirmada</option>
       </select>
     </form>
+  </div>
+
+  <div>
+    <label for="limit">Mostrar:</label>
+    <select id="limit" [(ngModel)]="limit" (change)="limitReservas()">
+      <option *ngFor="let option of paginationLimits" [value]="option">{{ option }}</option>
+    </select>
   </div>
 
   <table class="table table-striped">
