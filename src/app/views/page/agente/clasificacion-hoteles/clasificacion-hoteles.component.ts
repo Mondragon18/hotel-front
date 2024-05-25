@@ -2,8 +2,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Hotel } from 'src/app/core/models/clasificacion-hoteles.model';
 import { ClasificacionHotelesService } from 'src/app/core/services/clasificacion-hoteles.service';
+import { ModalComponent } from './modal/modal.component';
+
 
 @Component({
   selector: 'app-clasificacion-hoteles',
@@ -21,8 +24,10 @@ export class ClasificacionHotelesComponent implements OnInit {
   totalItems: number = 0;
   pageNumbers: number[] = [];
 
+
   constructor(
-    private ClasificacionHotelesService:  ClasificacionHotelesService
+    private ClasificacionHotelesService:  ClasificacionHotelesService,
+    public dialog: MatDialog
   ){}
 
   hotelForm: FormGroup = new FormGroup({
@@ -46,6 +51,24 @@ export class ClasificacionHotelesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadHoteles();
+  }
+
+  openModal(habitacionId?:number): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '50%', // Ajusta el ancho del modal
+      height: 'auto', // Ajusta la altura del modal
+      data: { hotelId: habitacionId}
+    });
+
+    // dialogRef.afterOpened().subscribe(() => {
+    //   // Aquí puedes ejecutar la función que desees al abrir el modal
+    //   // Por ejemplo, llamar a una función específica
+    //   if(habitacionId) {
+    //     this.loadhabitaciones(habitacionId);
+    //   } else {
+    //     alert('¡No se pudo identificar este hotel!');
+    //   }
+    // });
   }
 
   getCurrentError(field: string): string {
