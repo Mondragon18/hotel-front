@@ -11,45 +11,40 @@ import { HabitacionesComponent } from './agente/hoteles/habitaciones/habitacione
 export const PagesRoutes: Routes = [
   {
     path: '',
+    component: HotelesComponent,
+  },
+  {
+    path: 'hoteles',
     children: [
       {
-        path: 'usuario',
-        component: UsuarioComponent,
+        path: '',
+        component: HotelesComponent,
       },
       {
-        path: 'hoteles',
-        children: [
-          {
-            path: '',
-            component: HotelesComponent,
-          },
-          {
-            path: 'crear',
-            component: HotelesFormComponent,
-          },
-          {
-            path: ':id/editar',
-            component: HotelesFormComponent,
-          },
-          {
-            path: ':id/habitaciones',
-            component: HabitacionesComponent,
-          },
-        ],
+        path: 'crear',
+        component: HotelesFormComponent,
       },
       {
-          path:'calificacion_hoteles',
-          children: [
-            {
-              path: '',
-              component: ClasificacionHotelesComponent,
-            },
-          ]
+        path: ':id/editar',
+        component: HotelesFormComponent,
       },
       {
-        path: 'reservas',
-        component: ReservasComponent,
+        path: ':id/habitaciones',
+        component: HabitacionesComponent,
       },
     ],
+  },
+  {
+      path:'calificacion_hoteles',
+      children: [
+        {
+          path: '',
+          component: ClasificacionHotelesComponent,
+        },
+      ]
+  },
+  {
+    path: 'reservas',
+    component: ReservasComponent,
   },
 ];

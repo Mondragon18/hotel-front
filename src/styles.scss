@@ -2,10 +2,9 @@
 
 // @import "styles/_variables";
 @import "bootstrap/scss/bootstrap";
-@import "assets/scss/hoteles.scss";
-
 @import "toastify-js/src/toastify";
 html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+@import "assets/scss/hoteles.scss";
 @import "assets/scss/ultra/colors.scss"
