@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaginatedResponse } from '../models/hoteles.models';
 import { Hotel } from '../models/clasificacion-hoteles.model';
+import { Habitacion } from '../models/habitaciones.models';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +17,9 @@ export class ClasificacionHotelesService {
 
   getHotels(page: number = 1): Observable<PaginatedResponse<Hotel>> {
     return this.http.get<PaginatedResponse<Hotel>>(`${this.API_URL}/hoteles?page=${page}`);
+  }
+
+  getHabitacions(page: number = 1): Observable<PaginatedResponse<Habitacion>> {
+    return this.http.get<PaginatedResponse<Habitacion>>(`${this.API_URL}/habitaciones?page=${page}`);
   }
 }
