@@ -29,11 +29,12 @@ export class ReservasComponent implements OnInit  {
   selectedHotelState: string = ''; // Inicializa la propiedad selectedHotelState
   searchName: string = ''; // Inicializa la propiedad searchName
 
-  url: string = '';
-  page: number = 1;
-  limit:number = 10;
-  orderBy: string = 'created_at';
-  ascending:string = 'asc';
+  url: string = ''; // Resto de la url para filtrar
+  page: number = 1; // Numero de pagina
+  limit:number = 10; // Limite de paginación
+  paginationLimits: number[] = [1, 5, 10, 20, 50, 100]; // Opciones de límite de paginación
+  orderBy: string = 'created_at'; // Campo para ordenar
+  ascending:string = 'asc'; // Tipo para ordenar asc o desc
 
   constructor(
     private reservaService:  ReservasService,
@@ -74,25 +75,13 @@ export class ReservasComponent implements OnInit  {
     this.loadResevas(this.url);
   }
 
-  limitReservas(limit: number):void {
-    this.limit = limit;
-    this.loadResevas();
-  }
-
-  ascendingReservas(orden: string):void {
-    this.ascending = orden;
+  limitReservas():void {
     this.loadResevas();
   }
 
   sortReservas(column: string):void {
-    // Si la columna actual es la misma que la columna anterior, cambia la dirección del orden
-    if (this.orderBy === column) {
-      this.ascending = this.ascending === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.orderBy = column; // Establece la nueva columna para ordenar
-      this.ascending = 'asc'; // Restablece la dirección del orden a ascendente por defecto
-    }
-  
+    this.ascending = this.ascending === 'asc' ? 'desc' : 'asc';
+    this.orderBy = column; 
     this.loadResevas();
   }
 
