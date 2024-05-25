@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between">
-  <!-- <h2 mat-dialog-title class="mb-0">{{ getFormTitle() }}</h2> -->
+  <!-- <h2 mat-dialog-title class="mb-0">{{ getFormTitle() }}</h2>  -->
   <mat-dialog-actions class="pe-3">
     <button mat-button (click)="onClose()" class="btn-close"></button>
   </mat-dialog-actions>
@@ -7,7 +7,41 @@
 <div>
   <mat-dialog-content>
     <div class="row">
-      alex
+      <div class="form-group col-12">
+        <div class="input-group">
+          <input class="form-control {{ hasError('search') ? 'is-invalid' : ''}}" id="search" formControlName="search" type="text" />
+          <span class="input-group-text">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+              <path d="M21 21l-6 -6"></path>
+            </svg>
+          </span>
+        </div>
+        <!-- <div *ngIf="hasError('search')" class="invalid-feedback">
+          El campo nombre es requerido
+        </div> -->
+      </div>
+
+      <div class="col-12">
+
+        <div class="card mb-2" *ngFor="let habitacion of habitaciones">
+          <div class="card-header" [ngClass]="{'text-success' : habitacion.activo, 'text-danger' : !habitacion.activo}">
+            {{ habitacion.activo ? 'Disponible' : 'Sin disponibilidad' }}
+          </div>
+          <div class="card-body">
+            {{habitacion.id}} <br>
+            {{habitacion.tipo}} <br>
+            {{habitacion.costo_base}} <br>
+            {{habitacion.impuestos}} <br>
+            {{habitacion.activo}} <br>
+
+          <h5 class="card-title">N° {{habitacion.id}}</h5>
+            <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+          </div>
+        </div>
+      </div>
     </div>
   </mat-dialog-content>
   <!-- <mat-dialog-actions class="px-4">
