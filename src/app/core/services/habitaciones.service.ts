@@ -24,6 +24,11 @@ export class HabitacionesService {
     return this.http.get<Habitacion>(`${API_URL}/habitaciones/${id}`);
   }
 
+  getHabitacionOrHotel(id: number, page: number = 1, limit:number, url?:string): Observable<PaginatedResponse<Habitacion>> {
+    return this.http.get<PaginatedResponse<Habitacion>>(`${API_URL}/hoteles/${id}/habitaciones?page=${page}&limit=${limit}${url ? url : ''}`);
+  }
+
+
   createHabitacion(data: Habitacion):Observable<Habitacion> {
     return this.http.post<Habitacion>(`${API_URL}/habitaciones`, data);
   }

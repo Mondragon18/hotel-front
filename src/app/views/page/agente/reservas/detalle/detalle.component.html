@@ -1,64 +1,208 @@
 <div class="d-flex justify-content-between">
-  <h2 mat-dialog-title class="mb-0">Detalles de Reservación de Habitación de Hotel</h2>
+  <h2 mat-dialog-title class="mb-0">Detalles de la reservación N° {{ data.reservaId }}</h2>
   <mat-dialog-actions class="pe-3">
     <button mat-button (click)="onClose()" class="btn-close"></button>
   </mat-dialog-actions>
 </div>
 <form >
   <mat-dialog-content>
-    <div class="container">
-
-      <div class="card">
-          <div class="card-header">Hotel</div>
-          <div class="card-body">
-              <p><strong>Nombre:</strong> Walter-Walker</p>
-              <p><strong>Ubicación:</strong> 5653 Juwan Mountains Apt. 361, Legrosstad, ME 63074, North Chynaview, Dominica</p>
-              <p><strong>Teléfono:</strong> +1.740.393.6606</p>
-              <p><strong>Correo Electrónico:</strong></p>
-              <p><strong>Página Web:</strong></p>
-              <p><strong>Fecha de Apertura:</strong> 2016-03-12</p>
-              <p><strong>Descripción:</strong> Unde ut earum facilis mollitia. Officia laudantium alias enim praesentium et. Sint dolor et aut ea sit voluptatibus. Nobis dignissimos voluptas error officia optio tempore officiis natus.</p>
-              <p><strong>Clasificación:</strong> 2</p>
+    <div>
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="fw-bold mb-1">
+          <svg  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-building-skyscraper">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l18 0" /><path d="M5 21v-14l8 -4v18" /><path d="M19 21v-10l-6 -4" />
+            <path d="M9 9l0 .01" /><path d="M9 12l0 .01" /><path d="M9 15l0 .01" /><path d="M9 18l0 .01" />
+          </svg>
+          Hotel {{ reservacion?.habitacion?.hotel?.nombre }} 
+        </h5>
+          <div>
+            <span *ngIf="!reservacion?.habitacion?.hotel?.activo" class="badge badge-sm rounded-pill text-bg-danger">inactivo</span>
+            <span *ngIf="reservacion?.habitacion?.hotel?.activo" class="badge badge-sm rounded-pill text-bg-success">activo</span>
           </div>
       </div>
+      <p class="mb-1 txt-12 color-6">
+        {{ reservacion?.habitacion?.hotel?.email }}
+      </p>
+      <hr class="hr">
+     
+      <a href="{{ reservacion?.habitacion?.hotel?.pagina_web }}" class="text-decoration-none d-flex align-items-center gap-2">
+        <svg viewBox="0 0 24 24" width="15" height="15">
+          <path
+            d="M7.835,16.17c-.23-.23-.446-.482-.641-.748-.325-.446-.227-1.072,.22-1.397,.446-.325,1.071-.227,1.397,.219,.129,.178,.274,.349,.437,.511,.803,.803,1.87,1.245,3.005,1.245s2.203-.442,3.005-1.245l5.5-5.5c1.657-1.657,1.657-4.354,0-6.011s-4.354-1.657-6.011,0l-1.058,1.058c-.391,.391-1.023,.391-1.414,0s-.391-1.023,0-1.414l1.058-1.058c2.437-2.438,6.402-2.438,8.839,0,2.437,2.437,2.437,6.402,0,8.839l-5.5,5.5c-1.18,1.181-2.75,1.831-4.419,1.831s-3.239-.65-4.418-1.83Zm-1.582,7.83c1.67,0,3.239-.65,4.419-1.831l1.058-1.058c.391-.39,.391-1.023,0-1.414-.39-.391-1.023-.39-1.414,0l-1.059,1.058c-.803,.803-1.87,1.245-3.005,1.245s-2.202-.442-3.005-1.245-1.245-1.87-1.245-3.005,.442-2.203,1.245-3.005l5.5-5.5c.803-.803,1.87-1.245,3.005-1.245s2.203,.442,3.005,1.245c.16,.161,.306,.332,.436,.51,.324,.447,.949,.547,1.397,.221,.447-.325,.546-.95,.221-1.397-.19-.262-.405-.513-.639-.747-1.181-1.182-2.751-1.832-4.42-1.832s-3.239,.65-4.419,1.831L1.834,13.331C.653,14.511,.003,16.081,.003,17.75c0,1.669,.65,3.239,1.831,4.419,1.18,1.181,2.749,1.831,4.419,1.831Z" />
+        </svg>
+        <span class="mb-0">{{ reservacion?.habitacion?.hotel?.pagina_web}} </span>
+      </a>
 
-      <div class="card">
-          <div class="card-header">Habitación</div>
-          <div class="card-body">
-              <p><strong>Descripción:</strong> Eius facilis ut sequi nam non eligendi.</p>
-              <p><strong>Costo Base:</strong> $411.69</p>
-              <p><strong>Impuestos:</strong> $73.06</p>
-              <p><strong>Monto Total:</strong> $340.74</p>
+      <span *ngFor="let estrella of [1, 2, 3, 4, 5]" class="gap-1">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+            [ngClass]="{
+              'text-warning': +(reservacion?.habitacion?.hotel?.clasificacion ?? 0) >= estrella,
+              'text-gray': +(reservacion?.habitacion?.hotel?.clasificacion ?? 0) < estrella,
+              'star': true
+            }"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-star"
+          >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+        </svg>
+      </span>  
+      <div class="txt-14">
+        <p class="card-text mb-0">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+            <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
+          </svg>
+          {{ reservacion?.habitacion?.hotel?.direccion }}, {{ reservacion?.habitacion?.hotel?.ciudad }}, {{
+            reservacion?.habitacion?.hotel?.provincia_estado }}, {{ reservacion?.habitacion?.hotel?.pais }}
+        </p>
+        <p class="card-text mb-0">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-phone"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
+          </svg> {{ reservacion?.habitacion?.hotel?.telefono }}
+        </p>
+      </div>
+      <div class="mt-2">
+        <h5 class="txt-16 fw-bold">Nuestros Servicios</h5>
+        <section class="services txt-14 ms-2 mb-2">
+          <div class="container">
+            <mat-chip-listbox *ngIf="servicios; else noServices">
+              <mat-chip *ngFor="let servicio of servicios" class="f-s-14">
+                {{ servicio?.nombre }}
+              </mat-chip>
+            </mat-chip-listbox>
+            <ng-template #noServices>
+              <p>No hay servicios disponibles.</p>
+            </ng-template>
           </div>
+        </section>
+      </div>
+      <div class="mt-2">
+        <p class="card-text mb-0"><strong>Descripción</strong> </p>
+        <p class="txt-14">{{ reservacion?.habitacion?.hotel?.descripcion }}</p>
+      </div>
+      <div *ngIf="reservacion?.habitacion?.hotel?.fecha_apertura" class="d-flex justify-content-end">
+        <p class="card-text txt-14">Fecha de Apertura el <strong>{{ reservacion?.habitacion?.hotel?.fecha_apertura ?? '' | dateFormate:'humano' }}</strong></p>
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="fw-bold mb-1">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-armchair"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 11a2 2 0 0 1 2 2v2h10v-2a2 2 0 1 1 4 0v4a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-4a2 2 0 0 1 2 -2z" /><path d="M5 11v-5a3 3 0 0 1 3 -3h8a3 3 0 0 1 3 3v5" /><path d="M6 19v2" /><path d="M18 19v2" /></svg>
+          Habitacion {{ reservacion?.habitacion?.tipo }}
+        </h5>
+        <div>
+          <span *ngIf="!reservacion?.habitacion?.activo" class="badge badge-sm rounded-pill text-bg-danger">inactivo</span>
+          <span *ngIf="reservacion?.habitacion?.activo" class="badge badge-sm rounded-pill text-bg-success">activo</span>
+        </div>
+      </div>
+      <p class="mb-1 txt-12 color-6">
+        <!-- {{ reservacion?.habitacion?.numero_persona }} --> Personas
+      </p>
+      <hr class="hr">
+      <div class="d-flex justify-content-between">
+        <p class="mb-0 txt-16 fw-semibold"> Costo base ${{ reservacion?.habitacion?.costo_base }} </p>
+        <p class="mb-0 txt-16 fw-semibold">Impuesto ${{ reservacion?.habitacion?.impuestos }} </p>
+        <p class="mb-0 txt-18 fw-bold">Total ${{ reservacion?.habitacion?.total  }} </p>
+      </div>
+      <div class="mt-2">
+        <p class="card-text mb-0"><strong>Descripción</strong> </p>
+        <p class="txt-14">{{ reservacion?.habitacion?.descripcion }}</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="fw-bold mb-1">
+          <svg width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-adjustments-heart">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 10a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M6 4v4" /><path d="M6 12v8" /><path d="M12 4v8.5" /><path d="M16 7a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M18 4v1" /><path d="M18 9v2.5" /><path d="M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z" />
+          </svg>
+          Reservacion N°{{ reservacion?.id }}
+        </h5>
+        <div>
+          <span *ngIf="reservacion?.estado == 'Cancelada'" class="badge badge-sm rounded-pill text-bg-danger">{{ reservacion?.estado }}</span>
+          <span *ngIf="reservacion?.estado == 'Pendiente'" class="badge badge-sm rounded-pill text-bg-warning">{{ reservacion?.estado }}</span>
+          <span *ngIf="reservacion?.estado == 'Confirmada'" class="badge badge-sm rounded-pill text-bg-primary">{{ reservacion?.estado }}</span>
+        </div>
+      </div>
+      <p class="mb-1 txt-12 color-6">
+        <!-- {{ reservacion?.habitacion?.numero_persona }} --> Personas
+      </p>
+      <hr class="hr">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <p class="txt-16 mb-0 d-flex justify-content-between align-items-center">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-door-enter">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 12v.01" />
+            <path d="M3 21h18" />
+            <path d="M5 21v-16a2 2 0 0 1 2 -2h6m4 10.5v7.5" />
+            <path d="M21 7h-7m3 -3l-3 3l3 3" />
+          </svg>
+          Entrada el {{reservacion?.fecha_salida ?? '' | dateFormate:'humano'}}
+        </p>
+        <p class="txt-16 mb-0 d-flex justify-content-between align-items-center">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-door-exit">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 12v.01" /><path d="M3 21h18" />
+            <path d="M5 21v-16a2 2 0 0 1 2 -2h7.5m2.5 10.5v7.5" /><path d="M14 7h7m-3 -3l3 3l-3 3" />
+          </svg>
+          Salida el {{reservacion?.fecha_entrada ?? '' | dateFormate:'humano'}}
+        </p>
       </div>
 
-      <div class="card">
-          <div class="card-header">Reservación</div>
-          <div class="card-body">
-              <p><strong>Estado:</strong> Pendiente</p>
-              <p><strong>Fecha de Entrada:</strong> 2024-06-19</p>
-              <p><strong>Fecha de Salida:</strong> 2024-05-28</p>
-          </div>
+      <div class="mt-2">
+        <h6 class="fw-bold mb-1">
+          <svg width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-backpack">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 18v-6a6 6 0 0 1 6 -6h2a6 6 0 0 1 6 6v6a3 3 0 0 1 -3 3h-8a3 3 0 0 1 -3 -3z" />
+            <path d="M10 6v-1a2 2 0 1 1 4 0v1" /><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" /><path d="M11 10h2" />
+          </svg>
+          Viajero {{reservacion?.pasajero?.user?.nombres}} {{reservacion?.pasajero?.user?.apellidos}}
+        </h6>
+        <p class="mb-2 txt-12 color-6">
+          {{reservacion?.pasajero?.user?.email}}
+        </p>
+        <div class="d-flex justify-content-between">
+          <p class="mb-0 txt-14">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-id-badge-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 12h3v4h-3z" /><path d="M10 6h-6a1 1 0 0 0 -1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1 -1v-12a1 1 0 0 0 -1 -1h-6" /><path d="M10 3m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v3a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" /><path d="M14 16h2" /><path d="M14 12h4" /></svg>
+            {{reservacion?.pasajero?.tipo_documento}}:. {{reservacion?.pasajero?.numero_documento}}
+          </p>
+          <p class="mb-0 txt-14">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-phone"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
+            </svg>
+            {{reservacion?.pasajero?.telefono}}
+          </p>
+          <p class="mb-0 txt-14">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-gender-bigender"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11 11m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M19 3l-5 5" /><path d="M15 3h4v4" /><path d="M11 16v6" /><path d="M8 19h6" /></svg>
+            {{reservacion?.pasajero?.genero}}
+          </p>
+          <p class="mb-0 txt-14">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-due"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
+            {{reservacion?.pasajero?.fecha_nacimiento ?? '' | dateFormate:'humano'}}
+          </p>
+        </div>
       </div>
-
-      <div class="card">
-          <div class="card-header">Contacto de Emergencia</div>
-          <div class="card-body">
-              <p><strong>Nombre:</strong> Erich</p>
-              <p><strong>Teléfono:</strong> 458-582-9654</p>
-          </div>
+      <div *ngIf="reservacion?.contacto_emergencia else noReservas">
+        <h6 class="fw-bold mb-1">
+          <svg width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+          </svg>
+          Contacto de emergencia  {{ reservacion?.contacto_emergencia?.nombres}}
+        </h6>
+        <p class="mb-2 txt-12 color-6">
+          <svg width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-phone">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
+          </svg>
+          {{ reservacion?.contacto_emergencia?.telefono}}
+        </p>
       </div>
-
-      <div class="card">
-          <div class="card-header">Pasajero</div>
-          <div class="card-body">
-              <p><strong>Nombre:</strong> Doris Spinka</p>
-              <p><strong>Género:</strong> Masculino</p>
-              <p><strong>Fecha de Nacimiento:</strong> 1976-12-24</p>
-              <p><strong>Documento de Identidad:</strong> DNI - 49752587</p>
-              <p><strong>Teléfono:</strong> (743) 258-2578</p>
-          </div>
-      </div>
-  </div>
+      <ng-template #noReservas>
+        <p class="mt-2 text-center w-100">No tiene contacto de emergencia disponible.</p>
+      </ng-template>
+    </div>
   </mat-dialog-content>
 </form>

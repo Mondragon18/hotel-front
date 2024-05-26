@@ -1,11 +1,16 @@
+import { Hotel } from './hoteles.models';
+
 export interface Habitacion {
   id: number;
   hotel_id: number;
+  hotel: Hotel;
   tipo: string;
+  numero_persona: number;
   descripcion : string;
-  costo_base: string;
-  impuestos: string;
+  costo_base: number;
+  impuestos: number;
   activo: boolean;
+  total: number;
   created_at: string;
   updated_at: string;
 }
