@@ -7,4 +7,35 @@ html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 @import "assets/scss/hoteles.scss";
-@import "assets/scss/ultra/colors.scss"
+@import "assets/scss/ultra/colors.scss";
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+
+.page-link.active, .active > .page-link {
+  color: #415BE7 !important;
+  background-color: #a2a4e7 !important;
+  border-color: #a2a4e7 !important;
+  font-weight: 600 !important;
+}
+
+.page-link {
+  color: #121212 !important;
+  font-weight: 500 !important;
+}
+
+.cb-1 {
+  border-color: 1px solid #EC3B3B !important;
+}
+
+.cb-2 {
+  border-color: 1px solid #E9981F!important;
+}
+
+.cb-3 {
+  border-color: 1px solid #415BE7 !important;
+}

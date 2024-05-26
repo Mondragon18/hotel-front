@@ -16,8 +16,8 @@ export class HotelesService {
     private http: HttpClient
   ) { }
 
-  getHotels(page: number = 1): Observable<PaginatedResponse<Hotel>> {
-    return this.http.get<PaginatedResponse<Hotel>>(`${API_URL}/hoteles?page=${page}`);
+  getHotels(page: number = 1, limit:number, orderBy:string, url?:string): Observable<PaginatedResponse<Hotel>> {
+    return this.http.get<PaginatedResponse<Hotel>>(`${API_URL}/hoteles?page=${page}&limit=${limit}&ascending=${orderBy}${url ? url : ''}`);
   }
 
   getHotel(id: number):Observable<Hotel> {
@@ -37,6 +37,6 @@ export class HotelesService {
   }
 
   changeStatusHotel(id:number, activo:number):Observable<any> {
-    return this.http.get<any>(`$PI_URL}/hoteles/${id}/estado/${activo}`);
+    return this.http.get<any>(`${API_URL}/hoteles/${id}/estado/${activo}`);
   }
 }

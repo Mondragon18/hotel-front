@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: $font-family;
+  // font-family: $font-family;
   color: $textPrimary;
   font-size: 14px;
   line-height: 1.334rem;
@@ -29,6 +29,10 @@ html .mat-drawer-container {
   min-height: calc(100vh - 70px);
   margin: 0 auto;
   max-width: $boxedWidth;
+}
+
+.text-family {
+  font-family: 'Plus Jakarta Sans';
 }
 
 .w-100 {

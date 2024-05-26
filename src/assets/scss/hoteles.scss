@@ -10,6 +10,13 @@
   text-overflow: ellipsis;
 }
 
+.truncar-tx-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2; /* número de líneas a mostrar */
+}
+
 .rounded-pill-text {
   border-radius: 1rem;
 }
@@ -362,3 +369,15 @@ margin-bottom: 10px;
 margin-top: 20px;
 }
 // width: 50% !important;
+
+.page-link.active, .active > .page-link {
+  color: #415BE7;
+  background-color: #a2a4e7;
+  border-color: #a2a4e7;
+  font-weight: 600;
+}
+
+.page-link {
+  color: #121212;
+  font-weight: 500;
+}

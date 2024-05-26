@@ -1,131 +1,164 @@
-<div class="rounded-pill-text bg-7 px-3 py-4 ">
-    <div>
-      <h5 class="fw-bold mb-1" >Gestión de Reservaciones de Hotel</h5>
-      <p class="mb-1">
-        <span class="fw-bold">{{totalItems}} reservaciones encontradas, </span> 
-        <span class="color-6">Automatiza el proceso de registro y salida para reducir los tiempos de espera y mejorar la satisfacción del cliente</span>
+<div class="rounded-pill-text bg-7 px-5 py-4 ">
+    <div class="mb-2">
+      <h5 class="fw-bold mb-1">
+        <svg width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-adjustments-heart">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 10a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M6 4v4" /><path d="M6 12v8" /><path d="M12 4v8.5" /><path d="M16 7a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M18 4v1" /><path d="M18 9v2.5" /><path d="M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z" />
+        </svg>
+        Gestión de Reservaciones de Hotel
+      </h5>
+      <p class="mb-1 txt-12 color-6">
+        <span class="fw-bold color-5">{{totalItems}} reservaciones encontradas, </span> 
+        automatiza el proceso de registro y salida para reducir los tiempos de espera y mejorar la satisfacción del cliente
       </p>
-      <hr>
+      <hr class="hr">
     </div>
     <!-- filtros y buscador -->
-    <div>
+    <div class="mb-3">
       <form #searchForm="ngForm" class="d-flex justify-content-between">
-        <div class="form-group input-group w-50">
+        <div class="form-group mb-0 input-group w-50">
           <input type="text" class="form-control form-control-sm rounded-s-pill" id="searchName" 
               placeholder="Buscar por nombre, tipo de habitación..."
               [(ngModel)]="searchName" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchReservas()">
-          <div class="input-group-text rounded-e-pill" >
-            lupita
+          <div class="input-group-text rounded-e-pill">
+            <svg viewBox="0 0 24 24" width="18" height="18">
+              <path d="M23.707,22.293l-5.969-5.969a10.016,10.016,0,1,0-1.414,1.414l5.969,5.969a1,1,0,0,0,1.414-1.414ZM10,18a8,8,0,1,1,8-8A8.009,8.009,0,0,1,10,18Z"/>
+            </svg>
           </div>
         </div>
 
-
-        <button mat-icon-button class="btn btn-sm  rounded ms-auto px-2 py-0" [matMenuTriggerFor]="profilemenu">
-          <svg height="15" width="15"  aria-label="Notifications"  viewBox="0 0 24 24" >
-            <path d="m14 24a1 1 0 0 1 -.6-.2l-4-3a1 1 0 0 1 -.4-.8v-5.62l-7.016-7.893a3.9 3.9 0 0 1 2.916-6.487h14.2a3.9 3.9 0 0 1 2.913 6.488l-7.013 7.892v8.62a1 1 0 0 1 -1 1zm-3-4.5 2 1.5v-7a1 1 0 0 1 .253-.664l7.268-8.177a1.9 1.9 0 0 0 -1.421-3.159h-14.2a1.9 1.9 0 0 0 -1.421 3.158l7.269 8.178a1 1 0 0 1 .252.664z"/>
-          </svg>
-          Filtrar por
-        </button>
-
-
-        <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
-          <div>
-            <label for="checkin">Fecha de entrada:</label>
-            <input type="date" id="checkin" name="checkin" [(ngModel)]="checkinDate" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchReservas()">
+        <div class="d-flex justify-content-center gap-2">
+          <div class="d-flex justify-content-center">
+            <label class="mt-2 txt-14 me-1" for="limit">Mostrar: </label>
+            <select class="form-select btn-sm px-2 txt-14" style="width: 70px;" id="limit" [ngModelOptions]="{standalone: true}" [(ngModel)]="limit" (change)="limitReservas()">
+              <option *ngFor="let option of paginationLimits" [value]="option">{{ option }}</option>
+            </select>
           </div>
-          <div>
-            <label for="checkout">Fecha de salida:</label>
-            <input type="date" id="checkout" name="checkout" [(ngModel)]="checkoutDate" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchReservas()">
-          </div>
-          <div>
-          <label for="hotelState">Estado del hotel:</label>
-          <select id="hotelState" name="hotelState" [(ngModel)]="selectedHotelState" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchReservas()">
-            <option value="">Todos</option>
-            <option value="cancelada">Cancelada</option>
-            <option value="pendiente">Pendiente</option>
-            <option value="confirmada">Confirmada</option>
-          </select>
+          <button mat-icon-button class="btn btn-sm border rounded txt-14 ms-auto px-2 py-0" [matMenuTriggerFor]="profilemenu">
+            <svg height="15" width="15"  aria-label="Notifications"  viewBox="0 0 24 24" >
+              <path d="m14 24a1 1 0 0 1 -.6-.2l-4-3a1 1 0 0 1 -.4-.8v-5.62l-7.016-7.893a3.9 3.9 0 0 1 2.916-6.487h14.2a3.9 3.9 0 0 1 2.913 6.488l-7.013 7.892v8.62a1 1 0 0 1 -1 1zm-3-4.5 2 1.5v-7a1 1 0 0 1 .253-.664l7.268-8.177a1.9 1.9 0 0 0 -1.421-3.159h-14.2a1.9 1.9 0 0 0 -1.421 3.158l7.269 8.178a1 1 0 0 1 .252.664z"/>
+            </svg>
+            Filtrar por
+          </button>
+          <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow mt-2 ps-4 p-3 rounded-pill-text">
+            <div class="form-group">
+              <label for="checkin">Fecha de entrada:</label>
+              <input type="date" id="checkin" class="form-control" (click)="$event.stopPropagation()" [(ngModel)]="checkinDate" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchReservas()">
+            </div>
+            <div class="form-group">
+              <label for="checkout">Fecha de salida:</label>
+              <input type="date" id="checkout" class="form-control" (click)="$event.stopPropagation()" [(ngModel)]="checkoutDate" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchReservas()">
+            </div>
+            <div class="form-group">
+              <label for="hotelState">Estado del hotel:</label>
+              <select id="hotelState" class="form-select btn-sm px-2" (click)="$event.stopPropagation()" [(ngModel)]="selectedHotelState" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchReservas()">
+                <option value="">Todos</option>
+                <option value="cancelada">Cancelada</option>
+                <option value="pendiente">Pendiente</option>
+                <option value="confirmada">Confirmada</option>
+              </select>
+            </div>
+          </mat-menu>
         </div>
-        </mat-menu>
-        
-        
-
       </form>
     </div>
 
-  
-    <div>
-      <label for="limit">Mostrar:</label>
-      <select id="limit" [(ngModel)]="limit" (change)="limitReservas()">
-        <option *ngFor="let option of paginationLimits" [value]="option">{{ option }}</option>
-      </select>
-    </div>
-  
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col" (click)="sortReservas('id')">ID</th>
-          <th scope="col" (click)="sortReservas('pasajero.user.nombres')">Nombre
-            
-          </th>
-          <th scope="col" (click)="sortReservas('habitacion.tipo')">Habitación</th>
-          <th scope="col" (click)="sortReservas('fecha_entrada')">Fecha de Entrada</th>
-          <th scope="col" (click)="sortReservas('fecha_salida')">Fecha de Salida</th>
-          <th scope="col" (click)="sortReservas('estado')">Estado</th>
-          <th scope="col" (click)="sortReservas('created_at')">Solicitud</th>
-          <th scope="col">Acción</th>
-        </tr>
-      </thead>
-      <tbody *ngIf="reservas.length > 0; else noReservas">
-        <tr  *ngFor="let reserva of reservas">
-          <th scope="row">{{ reserva.id }}</th>
-          <td>{{ reserva.pasajero.user.nombres }} {{ reserva.pasajero.user.apellidos }}</td>
-          <td>N°{{ reserva.habitacion.id }} {{ reserva.habitacion.tipo }}</td>
-          <td>{{ reserva.fecha_entrada  | dateFormate:'humano'  }}</td>
-          <td>{{ reserva.fecha_salida  | dateFormate:'humano'  }}</td>
-          <td>{{ reserva.estado }}</td>
-          <td>{{ reserva.created_at  | dateFormate:'humanizacion'  }}</td>
-          <td class="d-flex justify-content-center">
-            <a  (click)="openModal(reserva.id)"> 
-              <svg viewBox="0 0 24 24" width="20" height="20">
-                <path d="M19,2H10c-2.76,0-5,2.24-5,5v6c0,2.76,2.24,5,5,5h9c2.76,0,5-2.24,5-5V7c0-2.76-2.24-5-5-5Zm-9,2h9c1.3,0,2.4,.84,2.82,2H7.18c.41-1.16,1.51-2,2.82-2Zm9,12H10c-1.65,0-3-1.35-3-3v-5h15v5c0,1.65-1.35,3-3,3Zm-2,5c0,.55-.45,1-1,1H5c-2.76,0-5-2.24-5-5v-7.35c0-1.22,.44-2.39,1.25-3.31,.37-.41,1-.45,1.41-.09,.42,.37,.45,1,.09,1.41-.48,.55-.75,1.25-.75,1.98v7.35c0,1.65,1.35,3,3,3h11c.55,0,1,.45,1,1Z"/>
-              </svg>
-            </a>
-          </td>
-        </tr>
-      </tbody>
+    <div class="table-responsive">
+      <table *ngIf="reservas.length > 0; else noReservas" class="table txt-14">
+        <thead>
+          <tr>
+            <th scope="col" (click)="sortReservas('id')">
+              ID
+              <span *ngIf="orderBy === 'id' && !ascending">▲</span>
+              <span *ngIf="orderBy === 'id' && ascending">▼</span>
+            </th>
+            <th scope="col" (click)="sortReservas('pasajero.user.nombres')">
+              Nombre
+              <span *ngIf="orderBy === 'pasajero.user.nombres' && !ascending">▲</span>
+              <span *ngIf="orderBy === 'pasajero.user.nombres' && ascending">▼</span>
+            </th>
+            <th scope="col" (click)="sortReservas('habitacion.tipo')">
+              Habitación
+              <span *ngIf="orderBy === 'habitacion.tipo' && !ascending">▲</span>
+              <span *ngIf="orderBy === 'habitacion.tipo' && ascending">▼</span>
+            </th>
+            <th scope="col" (click)="sortReservas('fecha_entrada')">
+              Fecha de Entrada
+               <span *ngIf="orderBy === 'fecha_entrada' && !ascending">▲</span>
+              <span *ngIf="orderBy === 'fecha_entrada' && ascending">▼</span>
+            </th>
+            <th scope="col" (click)="sortReservas('fecha_salida')">
+              Fecha de Salida
+               <span *ngIf="orderBy === 'fecha_salida' && !ascending">▲</span>
+              <span *ngIf="orderBy === 'fecha_salida' && ascending">▼</span>
+            </th>
+            <th scope="col" (click)="sortReservas('estado')">
+              Estado
+               <span *ngIf="orderBy === 'estado' && !ascending">▲</span>
+              <span *ngIf="orderBy === 'estado' && ascending">▼</span>
+            </th>
+            <th scope="col" (click)="sortReservas('created_at')">
+              Solicitud
+               <span *ngIf="orderBy === 'created_at' && !ascending">▲</span>
+              <span *ngIf="orderBy === 'created_at' && ascending">▼</span>
+            </th>
+            <th scope="col">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let reserva of reservas">
+            <th scope="row">{{ reserva.id }}</th>
+            <td>{{ reserva.pasajero.user.nombres }} {{ reserva.pasajero.user.apellidos }}</td>
+            <td>N°{{ reserva.habitacion.id }} {{ reserva.habitacion.tipo }}</td>
+            <td>{{ reserva.fecha_entrada  | dateFormate:'humano'  }}</td>
+            <td>{{ reserva.fecha_salida  | dateFormate:'humano'  }}</td>
+            <td>
+              <span *ngIf="reserva.estado == 'Cancelada'" class="badge badge-sm rounded-pill text-bg-danger">{{ reserva.estado }}</span>
+              <span *ngIf="reserva.estado == 'Pendiente'" class="badge badge-sm rounded-pill text-bg-warning">{{ reserva.estado }}</span>
+              <span *ngIf="reserva.estado == 'Confirmada'" class="badge badge-sm rounded-pill text-bg-primary">{{ reserva.estado }}</span>
+            </td>
+            <td>{{ reserva.created_at  | dateFormate:'humanizacion'  }}</td>
+            <td class="d-flex justify-content-center">
+              <a  (click)="openModal(reserva.id)"> 
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M19,2H10c-2.76,0-5,2.24-5,5v6c0,2.76,2.24,5,5,5h9c2.76,0,5-2.24,5-5V7c0-2.76-2.24-5-5-5Zm-9,2h9c1.3,0,2.4,.84,2.82,2H7.18c.41-1.16,1.51-2,2.82-2Zm9,12H10c-1.65,0-3-1.35-3-3v-5h15v5c0,1.65-1.35,3-3,3Zm-2,5c0,.55-.45,1-1,1H5c-2.76,0-5-2.24-5-5v-7.35c0-1.22,.44-2.39,1.25-3.31,.37-.41,1-.45,1.41-.09,.42,.37,.45,1,.09,1.41-.48,.55-.75,1.25-.75,1.98v7.35c0,1.65,1.35,3,3,3h11c.55,0,1,.45,1,1Z"/>
+                </svg>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <ng-template #noReservas>
-        <p>No hay reservaciones disponibles.</p>
+        <p class="text-center w-100">No hay reservaciones disponibles.</p>
       </ng-template>
-    </table>
+      
+      <nav class="d-flex justify-content-between align-items-center">
+        <span class="txt-14">Página {{ currentPage }} de {{ totalPages }}</span>
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <button class="page-link" href="#" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">
+              <svg viewBox="0 0 24 24" width="10" height="10">
+                <path
+                  d="M17.17,24a1,1,0,0,1-.71-.29L8.29,15.54a5,5,0,0,1,0-7.08L16.46.29a1,1,0,1,1,1.42,1.42L9.71,9.88a3,3,0,0,0,0,4.24l8.17,8.17a1,1,0,0,1,0,1.42A1,1,0,0,1,17.17,24Z" />
+              </svg>
     
-    <nav class="d-flex justify-content-between align-items-center">
-      <span>Página {{ currentPage }} de {{ totalPages }}</span>
-      <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <button class="page-link" href="#" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">
-            <svg viewBox="0 0 24 24" width="10" height="10">
-              <path
-                d="M17.17,24a1,1,0,0,1-.71-.29L8.29,15.54a5,5,0,0,1,0-7.08L16.46.29a1,1,0,1,1,1.42,1.42L9.71,9.88a3,3,0,0,0,0,4.24l8.17,8.17a1,1,0,0,1,0,1.42A1,1,0,0,1,17.17,24Z" />
-            </svg>
-  
-          </button>
-        </li>
-        <li class="page-item" *ngFor="let page of pageNumbers" [class.active]="currentPage === page">
-          <button class="page-link" (click)="goToPage(page)" [disabled]="currentPage === page">
-            {{ page }}
-          </button>
-        </li>
-        <li class="page-item">
-          <button class="page-link" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
-            <svg viewBox="0 0 24 24" width="10" height="10">
-              <path
-                d="M7,24a1,1,0,0,1-.71-.29,1,1,0,0,1,0-1.42l8.17-8.17a3,3,0,0,0,0-4.24L6.29,1.71A1,1,0,0,1,7.71.29l8.17,8.17a5,5,0,0,1,0,7.08L7.71,23.71A1,1,0,0,1,7,24Z" />
-            </svg>
-          </button>
-        </li>
-      </ul>
-    </nav>
+            </button>
+          </li>
+          <li class="page-item" *ngFor="let page of pageNumbers" [class.active]="currentPage === page">
+            <button class="page-link" (click)="goToPage(page)" [disabled]="currentPage === page">
+              {{ page }}
+            </button>
+          </li>
+          <li class="page-item">
+            <button class="page-link" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
+              <svg viewBox="0 0 24 24" width="10" height="10">
+                <path
+                  d="M7,24a1,1,0,0,1-.71-.29,1,1,0,0,1,0-1.42l8.17-8.17a3,3,0,0,0,0-4.24L6.29,1.71A1,1,0,0,1,7.71.29l8.17,8.17a5,5,0,0,1,0,7.08L7.71,23.71A1,1,0,0,1,7,24Z" />
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
 </div>
 
 

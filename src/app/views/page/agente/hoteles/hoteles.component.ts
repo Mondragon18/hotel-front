@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Hotel } from 'src/app/core/models/hoteles.models';
 import { HotelesService } from 'src/app/core/services/hoteles.service';
 import * as Toastify from 'toastify-js';
@@ -17,16 +18,29 @@ export class HotelesComponent  implements OnInit {
   totalItems: number = 0;
   pageNumbers: number[] = [];
 
+  url: string = ''; // Resto de la url para filtrar
+  page: number = 1; // Numero de pagina
+  limit:number = 10; // Limite de paginación
+  orderBy:string = 'asc'; // Limite de paginación
+  paginationLimits: number[] = [1, 5, 10, 20, 50, 100]; // Opciones de límite de paginación
+  paginationOrderby: string[] = ['asc', 'desc']; // Opciones de límite de paginación
+  
+  clasificacionHotel: string = ''; // Inicializa la propiedad checkoutDate
+  paginationClasificacion: number[] = [0, 1, 2, 3, 4, 5]; // Opciones de límite de paginación
+  selectedHotelState: string = ''; // Inicializa la propiedad selectedHotelState
+  searchName: string = ''; // Inicializa la propiedad searchName
+
   constructor(
-    private hotelesService:  HotelesService
+    private hotelesService:  HotelesService,
+    public dialog: MatDialog  
   ){}
 
   ngOnInit(): void {
     this.loadHoteles();
   }
 
-  private loadHoteles(page: number = 1): void {
-    this.hotelesService.getHotels(page).subscribe(response => {
+  private loadHoteles(url?: string): void {
+    this.hotelesService.getHotels(this.page, this.limit, this.orderBy, url).subscribe(response => {
       this.hoteles = response.data;
       this.currentPage = response.current_page;
       this.totalPages = response.last_page;
@@ -38,9 +52,32 @@ export class HotelesComponent  implements OnInit {
 
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
-      this.loadHoteles(page);
+      this.page = page;
+      this.loadHoteles();
     }
   }
+
+  searchHoteles(): void {
+    this.url = '';
+  
+    if (this.searchName) {
+      this.url += `&query=${this.searchName}`;
+    }
+    if (this.clasificacionHotel) {
+      this.url += (this.url ? '&' : '') + `&clasificacion=${this.clasificacionHotel}`;
+    }
+    if (this.selectedHotelState) {
+      this.url += (this.url ? '&' : '') + `&estado=${this.selectedHotelState}`;
+    }
+
+    this.loadHoteles(this.url);
+  }
+
+  
+  limitHoteles():void {
+    this.loadHoteles();
+  }
+
 
   updatePageNumbers(): void {
     const pageCount = 5; // Number of page links to show
@@ -64,7 +101,7 @@ export class HotelesComponent  implements OnInit {
     status = (status == 1) ? 0 : 1;
 
     this.hotelesService.changeStatusHotel(id, status).subscribe(hotel => {
-      this.showSuccessToast((status == 1) ? 'Hotel activo con éxito' : 'Hotel desactivado con éxito');
+      this.showSuccessToast((status == 1) ? 'Hotel activado con éxito' : 'Hotel inactivado con éxito');
       this.loadHoteles();
     })
   }

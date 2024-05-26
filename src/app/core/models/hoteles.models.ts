@@ -19,7 +19,7 @@ export interface Hotel {
   pais: string;
   telefono: string;
   email: string;
-  clasificacion?: string;
+  clasificacion: string;
   servicios?: Servicios[];
   descripcion?: string;
   fecha_apertura?: string;

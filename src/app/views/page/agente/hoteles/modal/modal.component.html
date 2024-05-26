@@ -4,46 +4,57 @@
     <button mat-button (click)="onClose()" class="btn-close"></button>
   </mat-dialog-actions>
 </div>
-<form [formGroup]="habitacionForm"  (ngSubmit)="saveHabitacion()">
+<form [formGroup]="habitacionForm"  (ngSubmit)="saveHabitacion()" class="mb-2">
   <mat-dialog-content>
     <div class="row">
       <div class="col-12 form-group">
-        <label for="tipo">Tipo*</label>
+        <label class="fw-bold color-6" for="tipo">Tipo*</label>
         <input type="text" class="form-control {{ hasError('tipo') ? 'is-invalid' : ''}}" id="tipo" formControlName="tipo">
         <div class="invalid-feedback" [ngSwitch]="getCurrentError('tipo')">
           <span *ngSwitchCase="'required'">El campo tipo es requerido</span>
         </div>
       </div>
       <div class="col-6 form-group">
-        <label for="costo_base">Costo Base*</label>
+        <label class="fw-bold color-6" for="costo_base">Costo Base*</label>
         <input type="number" class="form-control {{ hasError('costo_base') ? 'is-invalid' : ''}}" id="costo_base" formControlName="costo_base">
         <div class="invalid-feedback" [ngSwitch]="getCurrentError('costo_base')">
           <span *ngSwitchCase="'required'">El campo costo base es requerido</span>
         </div>
       </div>
       <div class="col-6 form-group">
-        <label for="impuestos">Impuestos*</label>
+        <label class="fw-bold color-6" for="impuestos">Impuestos*</label>
         <input type="number" class="form-control {{ hasError('impuestos') ? 'is-invalid' : ''}}" id="impuestos" formControlName="impuestos">
         <div class="invalid-feedback" [ngSwitch]="getCurrentError('impuestos')">
           <span *ngSwitchCase="'required'">El campo impuestos es requerido</span>
         </div>
       </div>
       <div class="col-12 form-group">
-        <label for="descripcion">Descripción</label>
+        <label class="fw-bold color-6" for="descripcion">Descripción</label>
         <textarea class="form-control" id="descripcion" formControlName="descripcion"></textarea>
       </div>
-      <div class="col-6">
+      <div class="col-12 d-flex justify-content-end">
         <div class="form-check">
           <input class="form-check-input" formControlName="activo" type="checkbox" value="" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
+          <label class="form-check-label fw-bold color-6" for="flexCheckDefault">
             Disponible
           </label>
         </div>
       </div>
     </div>
   </mat-dialog-content>
-  <mat-dialog-actions class="px-4">
-    <button mat-button (click)="onClose()"  class="btn btn-secondary btn-sm">Cerrar</button>
-    <button mat-button  class="btn btn-primary btn-sm" type="submit" [disabled]="habitacionForm.invalid">Guardar</button>
+  <mat-dialog-actions class="px-4 pb-2">
+      <button mat-button (click)="onClose()"  class="btn btn-sm border-1 fw-bold">
+        <svg  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-circle-x">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M10 10l4 4m0 -4l-4 4" />
+        </svg>
+        Cerrar
+      </button>
+      <button  mat-button class="btn btn-sm border-1 fw-bold" type="submit" [disabled]="habitacionForm.invalid">
+        <svg  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" /><path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M14 4l0 4l-6 0l0 -4" />
+        </svg>
+        Guardar
+      </button>
   </mat-dialog-actions>
 </form>

@@ -8,11 +8,12 @@ import { MatDialog } from '@angular/material/dialog';
 import * as Toastify from 'toastify-js';
 import { HabitacionesService } from 'src/app/core/services/habitaciones.service';
 import { MatChipsModule } from '@angular/material/chips';
+import { DateFormatePipe } from 'src/app/core/pipe/date-format.pipe';
 
 @Component({
   selector: 'app-habitaciones',
   standalone: true,
-  imports: [CommonModule, RouterModule, ModalComponent, MatChipsModule],
+  imports: [CommonModule, RouterModule, ModalComponent, MatChipsModule, DateFormatePipe],
   templateUrl: './habitaciones.component.html',
   styleUrl: './habitaciones.component.scss'
 })

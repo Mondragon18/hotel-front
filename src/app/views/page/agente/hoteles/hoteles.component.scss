@@ -1,0 +1,8 @@
+.text-warning {
+  stroke: #E9981F; /* Color del borde */
+  fill: #E9981F; /* Color del relleno */
+}
+.star {
+  stroke: currentColor; /* Color del borde igual al color actual */
+  stroke-width: 0; /* Ancho del borde */
+}
