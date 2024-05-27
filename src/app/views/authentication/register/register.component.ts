@@ -45,7 +45,7 @@ export class AppSideRegisterComponent {
   private handleResponse(response: any):void {
     this.tokenService.handleToken(response.token)
     this.tokenService.handleUsers(response.user)
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/calificacion_hoteles');
   }
 
   private handleErrors(errors:any): void {

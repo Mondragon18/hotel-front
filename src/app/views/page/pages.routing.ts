@@ -14,7 +14,7 @@ export const PagesRoutes: Routes = [
   {
     path: '',
     component: HotelesComponent,
-    canActivate: [isUserAuthenticatedGuard]
+    canActivate: [isUserAuthenticatedGuard, isAgenteGuard]
   },
   {
     path: 'hoteles',
