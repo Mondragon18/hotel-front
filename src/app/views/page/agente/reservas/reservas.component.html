@@ -112,9 +112,9 @@
             <td>{{ reserva.fecha_entrada  | dateFormate:'humano'  }}</td>
             <td>{{ reserva.fecha_salida  | dateFormate:'humano'  }}</td>
             <td>
-              <span *ngIf="reserva.estado == 'Cancelada'" class="badge badge-sm rounded-pill text-bg-danger">{{ reserva.estado }}</span>
-              <span *ngIf="reserva.estado == 'Pendiente'" class="badge badge-sm rounded-pill text-bg-warning">{{ reserva.estado }}</span>
-              <span *ngIf="reserva.estado == 'Confirmada'" class="badge badge-sm rounded-pill text-bg-primary">{{ reserva.estado }}</span>
+              <span *ngIf="reserva.estado == 'cancelada'" class="badge badge-sm rounded-pill text-bg-danger">{{ reserva.estado }}</span>
+              <span *ngIf="reserva.estado == 'pendiente'" class="badge badge-sm rounded-pill text-bg-warning">{{ reserva.estado }}</span>
+              <span *ngIf="reserva.estado == 'confirmada'" class="badge badge-sm rounded-pill text-bg-primary">{{ reserva.estado }}</span>
             </td>
             <td>{{ reserva.created_at  | dateFormate:'humanizacion'  }}</td>
             <td class="d-flex justify-content-center">

@@ -8,7 +8,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 // icons
 import { TablerIconsModule } from 'angular-tabler-icons';
 import * as TablerIcons from 'angular-tabler-icons/icons';
-// import { PagesRoutes } from './pages.routing';
 
 import { PagesRoutes } from './pages.routing';
 import { HotelesService } from 'src/app/core/services/hoteles.service';
@@ -17,8 +16,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { UsuarioComponent } from './agente/usuario/usuario.component';
 import { HotelesComponent } from './agente/hoteles/hoteles.component';
-import { ReservasComponent } from './agente/reservas/reservas.component';
-import { ReservasService } from 'src/app/core/services/reservas.service';
 import { HabitacionesService } from 'src/app/core/services/habitaciones.service';
 
 

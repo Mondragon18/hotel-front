@@ -1,26 +1,24 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { tap } from 'rxjs/operators';
-import { UsuarioService } from '../service/user.service';
+import { CanActivateFn, Router } from '@angular/router';
+import { TokenService } from '../services/token.service';
+import { inject } from '@angular/core';
 
-// servicios 
-// import { UsuarioService } from '../services/usuario.service';
+export const isUserAuthenticatedGuard: CanActivateFn = (route, state) => {
+  const isAuthenticated = inject(TokenService).isAuthenticated();
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthGuard implements CanActivate {
+  if (isAuthenticated)
+    return true;
 
-  constructor ( private usuarioService: UsuarioService, private router: Router ) {}
+  inject(Router).navigateByUrl('/login');
+    return false;
+};
 
-   canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ) {    
-      return this.usuarioService.validarToken()
-      .pipe(
-        tap( estaAutenticado => {
-          if ( !estaAutenticado ) {
-            this.router.navigateByUrl('/');
-          }
-        })
-      );
-  }
-}
+export const isGuestGuard: CanActivateFn = (route, state) => {
+  const isAuthenticated = inject(TokenService).isAuthenticated();
+
+  if (!isAuthenticated)
+    return true;
+
+  inject(Router).navigateByUrl('/hoteles');
+    return false;
+};
+

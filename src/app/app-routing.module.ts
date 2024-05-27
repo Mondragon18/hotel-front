@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
+import { isGuestGuard } from './core/guards/auth.guard';
+import { PageNotFoundComponent } from './views/error/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -37,6 +40,11 @@ const routes: Routes = [
           import('./views/authentication/authentication.module').then(
             (m) => m.AuthenticationModule
           ),
+        canActivate: [isGuestGuard]
+      },
+      {
+        path: '**',
+        component: PageNotFoundComponent
       },
     ],
   },

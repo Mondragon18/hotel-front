@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +27,7 @@ import { AuthenticationModule } from './views/authentication/authentication.modu
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true }
   ],
 })
 export class AppModule {}
