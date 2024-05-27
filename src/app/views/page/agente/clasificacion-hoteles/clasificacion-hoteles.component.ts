@@ -77,7 +77,7 @@ export class ClasificacionHotelesComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '50%',
       height: 'auto',
-      data: { hotelId: habitacionId }
+      data: { hotelId: habitacionId, filtros:  this.hotelForm.value }
     });
 
     dialogRef.afterOpened().subscribe(() => {
