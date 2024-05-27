@@ -37,6 +37,7 @@
       }
 
       &.activeMenu {
+        background-color: #bc62b6;
         .mdc-list-item__primary-text {
           color: $white !important;
         }

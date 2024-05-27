@@ -7,13 +7,14 @@ import { DetalleComponent } from './detalle/detalle.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DateFormatePipe } from 'src/app/core/pipe/date-format.pipe';
 import { FormsModule } from '@angular/forms';
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-reservas',
   templateUrl: './reservas.component.html',
   styleUrl: './reservas.component.scss',
   standalone: true,
-  imports: [CommonModule, DateFormatePipe, FormsModule ],
+  imports: [CommonModule, DateFormatePipe, FormsModule, MatMenuModule ],
 })
 export class ReservasComponent implements OnInit  {
 
@@ -38,7 +39,7 @@ export class ReservasComponent implements OnInit  {
 
   constructor(
     private reservaService:  ReservasService,
-    public dialog: MatDialog
+    public dialog: MatDialog  
   ){}
 
   ngOnInit(): void {

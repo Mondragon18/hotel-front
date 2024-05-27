@@ -2,7 +2,15 @@
   <app-branding></app-branding>
   <mat-nav-list class="sidebar-list">
     <app-nav-item *ngFor="let item of navItems" [item]="item"> </app-nav-item>
+    <div class="p-x-12 m-t-12">
+      <a [routerLink]="['/authentication/login']" mat-stroked-button color="primary" class="w-100">Cerrar sesión</a>
+    </div>
   </mat-nav-list>
+  
+
+  <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
+  </mat-menu>
+
   <!-- <div class="p-24">
     <div class="bg-light-primary d-flex align-items-center rounded p-20 m-t-20">
       <div>

@@ -1,115 +1,129 @@
-<mat-card class="cardWithShadow theme-card">
-  <mat-card-header>
-    <mat-card-title class="m-b-0">{{ getFormTitle() }}</mat-card-title>
-  </mat-card-header>
-  <mat-card-content class="b-t-1">
-    <form class="mb-5 row" [formGroup]="hotelForm"  (ngSubmit)="saveHotel()">
+<div class="rounded-pill-text bg-7 px-5 py-4 ">
+  <div>
+    <div class="mb-2 d-flex justify-content-between">
+      <h5 class="fw-bold mb-1">
+        <svg width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-adjustments-heart">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 10a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M6 4v4" /><path d="M6 12v8" /><path d="M12 4v8.5" /><path d="M16 7a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M18 4v1" /><path d="M18 9v2.5" /><path d="M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z" />
+        </svg>
+        {{ getFormTitle() }}
+      </h5>
+    </div>
+    <p class="mb-1 txt-12 color-6">
+      <span class="fw-bold color-5">Gestionan tus hoteles</span> 
+    </p>
+    <hr class="hr">
 
-        <div class="col-6 mb-2">
-          <label for="nombre">Nombre:</label>
-          <input class="form-control  {{ hasError('nombre') ? 'is-invalid' : ''}}" id="nombre" formControlName="nombre"  type="text" />
-          <div class="invalid-feedback" [ngSwitch]="getCurrentError('nombre')">
-            <span *ngSwitchCase="'required'">El campo nombre es requerido</span>
-          </div>
-        </div>
-        <div class="col-6 mb-2">
-          <label for="email">Email:</label>
-          <input class="form-control  {{ hasError('email') ? 'is-invalid' : ''}}" id="email" formControlName="email" type="email">
-          <div class="invalid-feedback" [ngSwitch]="getCurrentError('email')">
-            <span *ngSwitchCase="'required'">El campo email es requerido</span>
-          </div>
-        </div>
-        <div class="col-4 mb-2">
-          <label for="pais">País:</label>
-          <input class="form-control  {{ hasError('pais') ? 'is-invalid' : ''}}" id="pais" formControlName="pais"  type="text">
-          <div class="invalid-feedback" [ngSwitch]="getCurrentError('pais')">
-            <span *ngSwitchCase="'required'">El campo pais es requerido</span>
-          </div>
-        </div>
-        <div class="col-4 mb-2">
-          <label for="ciudad">Ciudad:</label>
-          <input class="form-control  {{ hasError('ciudad') ? 'is-invalid' : ''}}" id="ciudad" formControlName="ciudad"  type="text">
-          <div class="invalid-feedback" [ngSwitch]="getCurrentError('ciudad')">
-            <span *ngSwitchCase="'required'">El campo ciudad es requerido</span>
-          </div>
-        </div>
-        <div class="col-4 mb-2">
-          <label for="direccion">Dirección:</label>
-          <input class="form-control  {{ hasError('direccion') ? 'is-invalid' : ''}}" id="direccion" formControlName="direccion" type="text">
-          <div class="invalid-feedback" [ngSwitch]="getCurrentError('direccion')">
-            <span *ngSwitchCase="'required'">El campo direccion es requerido</span>
-          </div>
-        </div>
+    <form class="mb-5 txt-14 row" [formGroup]="hotelForm"  (ngSubmit)="saveHotel()">
 
-
-
-        <div class="col-4 mb-2">
-          <label for="telefono">Teléfono:</label>
-          <input class="form-control  {{ hasError('telefono') ? 'is-invalid' : ''}}" id="telefono" formControlName="telefono" type="text">
-          <div class="invalid-feedback" [ngSwitch]="getCurrentError('telefono')">
-            <span *ngSwitchCase="'required'">El campo telefono es requerido</span>
-          </div>
+      <div class="col-6 mb-2">
+        <label class="fw-bold color-6" for="nombre">Nombre*</label>
+        <input class="form-control  {{ hasError('nombre') ? 'is-invalid' : ''}}" id="nombre" formControlName="nombre"  type="text" />
+        <div class="invalid-feedback" [ngSwitch]="getCurrentError('nombre')">
+          <span *ngSwitchCase="'required'">El campo nombre es requerido</span>
         </div>
-
-        <div class="col-4 mb-2">
-          <label for="clasificacion">Clasificación:</label>
-          <input class="form-control" id="clasificacion" formControlName="clasificacion" type="text">
+      </div>
+      <div class="col-6 mb-2">
+        <label class="fw-bold color-6" for="email">Email*</label>
+        <input class="form-control  {{ hasError('email') ? 'is-invalid' : ''}}" id="email" formControlName="email" type="email">
+        <div class="invalid-feedback" [ngSwitch]="getCurrentError('email')">
+          <span *ngSwitchCase="'required'">El campo email es requerido</span>
         </div>
-
-        <div class="col-4 mb-2">
-          <label for="fecha_apertura">Fecha de Apertura:</label>
-          <input class="form-control" id="fecha_apertura" formControlName="fecha_apertura" type="date">
+      </div>
+      <div class="col-4 mb-2">
+        <label class="fw-bold color-6" for="pais">País*</label>
+        <input class="form-control  {{ hasError('pais') ? 'is-invalid' : ''}}" id="pais" formControlName="pais"  type="text">
+        <div class="invalid-feedback" [ngSwitch]="getCurrentError('pais')">
+          <span *ngSwitchCase="'required'">El campo pais es requerido</span>
         </div>
-
-        <div class="col-12 mb-2" formArrayName="servicios" *ngIf="services.length > 0; else noServicios">
-          <label>Servicios:</label>
-          <div class="d-flex flex-wrap gap-2">
-            <div *ngFor="let servicio of services ?? []" class="form-check">
-              <input class="form-control" type="checkbox" class="form-check-input" id="servicio{{ servicio.id }}" (change)="actualizarServicios({ id: servicio.id, nombre: servicio.nombre })">
-              <label class="form-check-label" for="servicio{{ servicio.id }}">
-                {{ servicio.nombre }}
-              </label>
-            </div>
-          </div>
+      </div>
+      <div class="col-4 mb-2">
+        <label class="fw-bold color-6" for="ciudad">Ciudad*</label>
+        <input class="form-control  {{ hasError('ciudad') ? 'is-invalid' : ''}}" id="ciudad" formControlName="ciudad"  type="text">
+        <div class="invalid-feedback" [ngSwitch]="getCurrentError('ciudad')">
+          <span *ngSwitchCase="'required'">El campo ciudad es requerido</span>
         </div>
-        <ng-template #noServicios>
-          <p class="col-12">No hay hoteles disponibles.</p>
-        </ng-template>
-
-        <div class="col-12 mb-2">
-          <label for="descripcion">Descripción:</label>
-          <textarea class="form-control" id="descripcion" formControlName="descripcion"></textarea>
+      </div>
+      <div class="col-4 mb-2">
+        <label class="fw-bold color-6" for="direccion">Dirección*</label>
+        <input class="form-control  {{ hasError('direccion') ? 'is-invalid' : ''}}" id="direccion" formControlName="direccion" type="text">
+        <div class="invalid-feedback" [ngSwitch]="getCurrentError('direccion')">
+          <span *ngSwitchCase="'required'">El campo direccion es requerido</span>
         </div>
+      </div>
 
-        <div class="col-12 mb-2">
-          <label for="pagina_web">Página Web:</label>
-          <input class="form-control" id="pagina_web" formControlName="pagina_web" type="url">
+      <div class="col-4 mb-2">
+        <label class="fw-bold color-6" for="telefono">Teléfono:</label>
+        <input class="form-control  {{ hasError('telefono') ? 'is-invalid' : ''}}" id="telefono" formControlName="telefono" type="text">
+        <div class="invalid-feedback" [ngSwitch]="getCurrentError('telefono')">
+          <span *ngSwitchCase="'required'">El campo telefono es requerido</span>
         </div>
-        <!-- <div class="col-3 mb-2">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" formControlName="activo"  id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
-              activo
+      </div>
+
+      <div class="col-4 mb-2">
+        <label class="fw-bold color-6" for="clasificacion">Clasificación</label>
+        <input class="form-control" id="clasificacion" formControlName="clasificacion" type="text">
+      </div>
+
+      <div class="col-4 mb-2">
+        <label class="fw-bold color-6" for="fecha_apertura">Fecha de Apertura</label>
+        <input class="form-control txt-14" id="fecha_apertura" formControlName="fecha_apertura" type="date">
+      </div>
+
+      <div class="col-12 mb-2" formArrayName="servicios" *ngIf="services.length > 0; else noServicios">
+        <label class="fw-bold color-6">Servicios</label>
+        <div class="ms-2 d-flex flex-wrap gap-2">
+          <div *ngFor="let servicio of services ?? []" class="form-check">
+            <input class="form-control" type="checkbox" class="form-check-input" id="servicio{{ servicio.id }}" (change)="actualizarServicios({ id: servicio.id, nombre: servicio.nombre })">
+            <label class="form-check-label" for="servicio{{ servicio.id }}">
+              {{ servicio.nombre }}
             </label>
           </div>
-          <label for="activo">Activo:</label>
-          <input class="form-control" id="activo" formControlName="activo" type="number">
+        </div>
+      </div>
+      <ng-template #noServicios>
+        <p class="col-12">No hay hoteles disponibles.</p>
+      </ng-template>
+      <div class="col-12 mb-2">
+        <label class="fw-bold color-6" for="descripcion">Descripción</label>
+        <textarea class="form-control" rows="5" id="descripcion" formControlName="descripcion"></textarea>
+      </div>
+      <div class="col-12 mb-2">
+        <label class="fw-bold color-6" for="pagina_web">Página Web</label>
+        <div class="input-group">
+          <span class="input-group-text txt-14" id="basic-addon3">https://</span>
+          <input class="form-control" id="pagina_web" formControlName="pagina_web" type="url">
+        </div>
+      </div>
+      <div class="col-12">
+
+        <!-- <input type="file" (change)="onFileSelected($event)" multiple>
+
+        <div *ngIf="selectedImages.length > 0" class="preview-image">
+          <img *ngFor="let image of selectedImages" [src]="getImageSrc(image)" alt="Vista previa de la imagen">
         </div> -->
-        <div class="col-12">
-
-          <!-- <input type="file" (change)="onFileSelected($event)" multiple>
-
-          <div *ngIf="selectedImages.length > 0" class="preview-image">
-            <img *ngFor="let image of selectedImages" [src]="getImageSrc(image)" alt="Vista previa de la imagen">
-          </div> -->
-        </div>
+      </div>
 
 
 
-        <div class="col-12 mb-2 d-flex justify-content-end gap-2">
-          <a routerLink="/hoteles" class="btn btn-secondary btn-sm">Cancelar</a>
-          <button class="btn btn-primary btn-sm" type="submit" [disabled]="hotelForm.invalid">Guardar</button>
-        </div>
-    </form>
-  </mat-card-content>
-</mat-card>
+      <div class="col-12 mb-2 d-flex justify-content-end gap-2">
+        <a routerLink="/hoteles" class="btn btn-sm border-1 fw-bold">
+          <svg  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-circle-x">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M10 10l4 4m0 -4l-4 4" />
+          </svg>
+          Cancelar
+        </a>
+        <button class="btn btn-sm border-1 fw-bold" type="submit" [disabled]="hotelForm.invalid">
+          <svg  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" /><path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M14 4l0 4l-6 0l0 -4" />
+          </svg>
+          Guardar
+        </button>
+      </div>
+  </form>
+
+  </div>
+</div>
+
+
+

@@ -1,0 +1,45 @@
+body {
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 20px;
+}
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+.card {
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.card-header {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 10px 10px 0 0;
+}
+.card-body {
+  padding: 20px;
+}
+.card-body p {
+  margin: 10px 0;
+}
+.card-body .label {
+  font-weight: bold;
+  color: #333;
+}
+
+.text-warning {
+  stroke: #E9981F; /* Color del borde */
+  fill: #E9981F; /* Color del relleno */
+}
+
+.text-gray {
+  stroke: #929292; /* Color del borde */
+  fill: #929292; /* Color del relleno */
+}
+
+.star {
+  stroke: currentColor; /* Color del borde igual al color actual */
+  stroke-width: 0; /* Ancho del borde */
+}
