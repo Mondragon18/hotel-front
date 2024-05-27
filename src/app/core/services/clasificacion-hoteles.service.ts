@@ -26,4 +26,8 @@ export class ClasificacionHotelesService {
   getHabitacionOrHotel(id_hotel: number , query: String ='page=1'): Observable<PaginatedResponse<Habitacion>> {
     return this.http.get<PaginatedResponse<Habitacion>>(`${this.API_URL}/hoteles/${id_hotel}/habitaciones?${query}`);
   }
+
+  createHotel(data: any):Observable<Hotel> {
+    return this.http.post<Hotel>(`${this.API_URL}/reservas`, data);
+  }
 }
