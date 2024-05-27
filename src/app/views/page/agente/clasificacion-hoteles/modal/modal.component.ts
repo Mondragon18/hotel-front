@@ -9,6 +9,7 @@ import {
 import { Inject } from '@angular/core';
 import { ClasificacionHotelesService } from 'src/app/core/services/clasificacion-hoteles.service';
 import { Habitacion } from 'src/app/core/models/habitaciones.models';
+import * as Toastify from 'toastify-js';
 
 @Component({
   selector: 'app-modal',
@@ -26,6 +27,7 @@ export class ModalComponent implements OnInit {
   pageNumbers: number[] = [];
   showForm: boolean = false;
   reservaForm!: FormGroup;
+  habitacionId!: number;
 
   constructor(
     private clasificacionHotelesService: ClasificacionHotelesService,
@@ -74,16 +76,24 @@ export class ModalComponent implements OnInit {
     this.loadHabitaciones(this.data.hotelId, 1, '');
   }
 
-  private guardarReserva(): void {
+  guardarReserva(): void {
+    // Encontrar el primer registro con el ID buscado
+    const registroEncontrado = this.habitaciones.find(registro => registro.id === this.habitacionId);
     const data = {
-      id_habitacion: '',
-      id_hote: '',
-      fecha_entrada: this.reservaForm.get('fecha_entrada'),
-      fecha_salida: this.reservaForm.get('fecha_salida')
-    };
-    // this.clasificacionHotelesService.getHabitacionOrHotel(data).subscribe(response => {
+      habitacion_id: this.habitacionId,
+      pasajero_id: 1,
+      fecha_entrada: this.reservaForm.get('fecha_entrada')?.value,
+      fecha_salida: this.reservaForm.get('fecha_salida')?.value,
+      usuario_email: 'ale@gmail.com',
+      monto_total: registroEncontrado?.costo_base,
+      estado: 'pendiente'
 
-    // }
+    };
+    console.log(data);
+    this.clasificacionHotelesService.createHotel(data).subscribe(response => {
+      this.showSuccessToast('¡Reserva creada con exito!');
+      console.log('crear hpotel: ', response);
+    });
   }
 
   private loadHabitaciones(hotel_id: number, page: number, search?: string): void {
@@ -96,5 +106,18 @@ export class ModalComponent implements OnInit {
       this.totalItems = response.total;
       // console.log('habitaciones: ', response);
     });
+  }
+
+  private showSuccessToast(message: string): void {
+    Toastify({
+      text: message,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus : true,
+      style: {
+        background: "#189586",
+      }
+    }).showToast();
   }
 }
