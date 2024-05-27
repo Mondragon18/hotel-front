@@ -35,6 +35,7 @@ export class AppSideLoginComponent {
 
   private handleResponse(response: any):void {
     this.tokenService.handleToken(response.token);
+    this.tokenService.handleUsers(response.user);
     this.router.navigateByUrl('/');
   }
 

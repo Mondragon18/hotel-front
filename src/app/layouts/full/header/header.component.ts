@@ -4,8 +4,11 @@ import {
   EventEmitter,
   Input,
   ViewEncapsulation,
+  OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Usuarios } from 'src/app/core/models/usuarios.models';
+import { TokenService } from '../../../core/services/token.service';
 
 
 @Component({
@@ -13,7 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './header.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit  {
   @Input() showToggle = true;
   @Input() toggleChecked = false;
   @Output() toggleMobileNav = new EventEmitter<void>();
@@ -22,5 +25,22 @@ export class HeaderComponent {
 
   showFiller = false;
 
-  constructor(public dialog: MatDialog) {}
+  nombre: string = '';
+  apellido: string = '';
+  email: string = '';
+
+  usuario: any;
+
+  constructor(
+    public dialog: MatDialog,
+    private tokenService: TokenService
+  ) {}
+
+  ngOnInit(): void {
+    this.usuario = this.tokenService.getUsers();
+    
+    // this.nombre = this.tokenService.getUsers()?.nombres;
+    // this.apellido = this.tokenService.getUsers()?.apellidos;
+    // this.email = this.tokenService.getUsers()?.email;
+  }
 }
