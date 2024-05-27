@@ -20,8 +20,10 @@ export class TokenService {
   getToken(): string | null {
     return localStorage.getItem('access_token')
   }
-  
 
+  // getUsers(): Usuarios {
+  //   return [];
+  // }
   revokeToken(): void {
     localStorage.removeItem('access_token')
   }

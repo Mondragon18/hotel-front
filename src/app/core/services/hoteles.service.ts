@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Hotel, PaginatedResponse } from '../models/hoteles.models';
 
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment.prod';
 
 const API_URL = environment.base_url
 

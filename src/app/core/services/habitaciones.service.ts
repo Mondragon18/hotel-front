@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Habitacion, PaginatedResponse } from '../models/habitaciones.models';
 
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment.prod';
 
 const API_URL = environment.base_url
 
@@ -11,6 +11,7 @@ const API_URL = environment.base_url
   providedIn: 'root'
 })
 export class HabitacionesService {
+  
 
   constructor(
     private http: HttpClient

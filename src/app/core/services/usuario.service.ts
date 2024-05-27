@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Usuarios } from '../models/usuarios.models';
 import { Observable } from 'rxjs';
 
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment.prod';
 
 const API_URL = environment.base_url
 
