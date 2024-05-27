@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { ReservasComponent } from './agente/reservas/reservas.component';
-import { ClasificacionHotelesComponent } from './agente/clasificacion-hoteles/clasificacion-hoteles.component';
+import { ClasificacionHotelesComponent } from './viajero/hoteles/clasificacion-hoteles.component';
 import { HotelesComponent } from './agente/hoteles/hoteles.component';
 import { HotelesFormComponent } from './agente/hoteles/hoteles-form/hoteles-form.component';
 import { HabitacionesComponent } from './agente/hoteles/habitaciones/habitaciones.component';
@@ -42,7 +42,7 @@ export const PagesRoutes: Routes = [
     ],
   },
   {
-      path:'calificacion_hoteles',
+      path:'agenda/tu/hotel/preferido',
       children: [
         {
           path: '',

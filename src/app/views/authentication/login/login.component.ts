@@ -39,7 +39,8 @@ export class AppSideLoginComponent {
     if(response.user.persona == 'agente') {
       this.router.navigateByUrl('/');
     } else {
-      this.router.navigateByUrl('/calificacion_hoteles');
+      this.tokenService.handlePersona(response.persona);
+      this.router.navigateByUrl('/agenda/tu/hotel/preferido');
     }
   }
 

@@ -107,30 +107,23 @@
                 </svg>
               </span>
               <div class="d-flex justify-content-between mt-1 gap-2 align-items-center">
-                <div class="align-self-end">
+                <div class="">
                   <span *ngIf="hotel?.activo" class="badge rounded-pill txt-10 text-bg-success">Activo</span>
                   <span *ngIf="!hotel?.activo" class="badge rounded-pill txt-10 text-bg-danger">Inactivo</span>
                 </div>
-                <div class="d-flex justify-content-end align-items-center gap-2">
-                  Reservar
-                  <a (click)="openModal(hotel.id)">
-                    <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20">
-                      <path
-                        d="M18.656.93,6.464,13.122A4.966,4.966,0,0,0,5,16.657V18a1,1,0,0,0,1,1H7.343a4.966,4.966,0,0,0,3.535-1.464L23.07,5.344a3.125,3.125,0,0,0,0-4.414A3.194,3.194,0,0,0,18.656.93Zm3,3L9.464,16.122A3.02,3.02,0,0,1,7.343,17H7v-.343a3.02,3.02,0,0,1,.878-2.121L20.07,2.344a1.148,1.148,0,0,1,1.586,0A1.123,1.123,0,0,1,21.656,3.93Z" />
-                      <path
-                        d="M23,8.979a1,1,0,0,0-1,1V15H18a3,3,0,0,0-3,3v4H5a3,3,0,0,1-3-3V5A3,3,0,0,1,5,2h9.042a1,1,0,0,0,0-2H5A5.006,5.006,0,0,0,0,5V19a5.006,5.006,0,0,0,5,5H16.343a4.968,4.968,0,0,0,3.536-1.464l2.656-2.658A4.968,4.968,0,0,0,24,16.343V9.979A1,1,0,0,0,23,8.979ZM18.465,21.122a2.975,2.975,0,0,1-1.465.8V18a1,1,0,0,1,1-1h3.925a3.016,3.016,0,0,1-.8,1.464Z" />
+                <div class="d-flex justify-content-end">
+                  <a (click)="openModal(hotel.id, hotel.nombre)" class="btn btn-sm btn-ligth txt-14 border-1">
+                    <svg  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-hotel-service">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8.5 10a1.5 1.5 0 0 1 -1.5 -1.5a5.5 5.5 0 0 1 11 0v10.5a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2c0 -1.38 .71 -2.444 1.88 -3.175l4.424 -2.765c1.055 -.66 1.696 -1.316 1.696 -2.56a2.5 2.5 0 1 0 -5 0a1.5 1.5 0 0 1 -1.5 1.5z" />
                     </svg>
+                    Reservar
                   </a>
                 </div>
               </div>
-
-    
             </div>
           </div>
         </div>
       </div>
-
-
     </div>
   </div>
 </div>

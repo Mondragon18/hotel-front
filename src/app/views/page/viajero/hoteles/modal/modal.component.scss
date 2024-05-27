@@ -31,3 +31,13 @@ mat-dialog-actions {
   margin: 0;
   border-top: 1px solid rgba(0, 0, 0, 0);
 }
+
+.truncar-tx {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #b1b1b1;
+}

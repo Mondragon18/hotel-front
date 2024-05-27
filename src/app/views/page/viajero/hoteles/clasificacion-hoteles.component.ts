@@ -77,11 +77,11 @@ export class ClasificacionHotelesComponent implements OnInit {
     });
   }
 
-  openModal(habitacionId?: number): void {
+  openModal(habitacionId?: number, nombre?: string): void {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '50%',
       height: 'auto',
-      data: { hotelId: habitacionId, filtros:  this.hotelForm.value }
+      data: { hotelId: habitacionId, nombre: nombre,  filtros:  this.hotelForm.value }
     });
 
     dialogRef.afterOpened().subscribe(() => {
