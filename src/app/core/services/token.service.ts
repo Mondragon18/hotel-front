@@ -21,9 +21,11 @@ export class TokenService {
     return localStorage.getItem('access_token')
   }
 
-  // getUsers(): Usuarios {
-  //   return [];
-  // }
+  getUsers(): any | null {
+    const usuarioStr = localStorage.getItem('usuario');
+    return usuarioStr ? JSON.parse(usuarioStr) : null;
+  }
+
   revokeToken(): void {
     localStorage.removeItem('access_token')
   }
@@ -32,6 +34,24 @@ export class TokenService {
     if( this.getToken())
       return true;
 
+    return false;
+  }
+
+  isAuthPerson(): boolean {
+    const usuario = this.getUsers();
+    if (usuario && usuario.persona === 'pasajero') {
+      console.log(usuario.persona);
+      return true;
+    }
+    return false;
+  }
+
+  isAuthAgente(): boolean {
+    const usuario = this.getUsers();
+    if (usuario && usuario.persona === 'agente') {
+      console.log(usuario.persona);
+      return true;
+    }
     return false;
   }
 }

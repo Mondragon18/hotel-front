@@ -11,11 +11,11 @@ export const navItems: NavItem[] = [
     iconName: 'adjustments-heart',
     route: '/reservas',
   }, 
-  {
-    displayName: 'Clasificacion Hotelera',
-    iconName: 'building-skyscraper',
-    route: '/calificacion_hoteles',
-  },
+  // {
+  //   displayName: 'Clasificacion Hotelera',
+  //   iconName: 'building-skyscraper',
+  //   route: '/calificacion_hoteles',
+  // },
   // {
   //   navCap: 'Ui Components',
   // },
@@ -70,4 +70,12 @@ export const navItems: NavItem[] = [
   //   iconName: 'aperture',
   //   route: '/extra/sample-page',
   // },
+];
+
+export const navPasajero: NavItem[] = [
+  {
+    displayName: 'Hoteles',
+    iconName: 'building-skyscraper',
+    route: '/calificacion_hoteles',
+  },
 ];

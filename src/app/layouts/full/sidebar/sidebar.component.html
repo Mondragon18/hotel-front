@@ -1,7 +1,14 @@
 <div class="flex-layout">
   <app-branding></app-branding>
   <mat-nav-list class="sidebar-list">
-    <app-nav-item *ngFor="let item of navItems" [item]="item"> </app-nav-item>
+
+    <div *ngIf="usuario?.persona == 'agente'">
+      <app-nav-item *ngFor="let item of navItems" [item]="item"> </app-nav-item>
+    </div>
+    <div *ngIf="usuario?.persona == 'pasajero'">
+      <app-nav-item *ngFor="let item of navPasajero" [item]="item"> </app-nav-item>
+    </div>
+    
     <div class="p-x-12 m-t-12">
       <a (click)="logout()" mat-stroked-button color="primary" class="w-100">Cerrar sesión</a>
     </div>
