@@ -94,7 +94,7 @@
         </div>
 
         <ng-template #showFormreserva>
-          <div class="col-12 row m-0 p-0" [formGroup]="reservaForm">
+          <div class="col-12 row m-0 p-0" [formGroup]="reservaForm" *ngIf="(registroEncontrado.length <= 0); else showForm">
             <div class="form-group col-6">
               <label for="checkin">Usuario:</label>
               <input type="date" id="checkin" class="form-control" formControlName="fecha_entrada">
@@ -107,6 +107,26 @@
               <button type="button" class="btn btn-primary d-flex" (click)="guardarReserva()">Reservar habiatción</button>
             </div>
           </div>
+
+          <ng-template #showForm>
+            <div class="col-12 row m-0 p-0" [formGroup]="contactoForm">
+              <div>
+                <h3>Contacto de emergencias</h3>
+              </div>
+              <div class="form-group col-6">
+                <label for="checkin">Nombre:</label>
+                <input type="text" id="checkin" class="form-control" formControlName="nombres">
+              </div>
+              <div class="form-group col-6">
+                <label for="checkin">telefono:</label>
+                <input type="text" id="checkin" class="form-control" formControlName="telefono">
+              </div>
+              <div class="col-12 w-100">
+                <button type="button" class="btn btn-primary d-flex" (click)="guardarcontactoEmrgencia()">Reservar habiatción</button>
+              </div>
+            </div>
+          </ng-template>
+
         </ng-template>
       </div>
     </ng-template>

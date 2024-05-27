@@ -28,6 +28,8 @@ export class ModalComponent implements OnInit {
   showForm: boolean = false;
   reservaForm!: FormGroup;
   habitacionId!: number;
+  showContactoEmergencia: boolean = false;
+  registroEncontrado: any = [];
 
   constructor(
     private clasificacionHotelesService: ClasificacionHotelesService,
@@ -39,6 +41,12 @@ export class ModalComponent implements OnInit {
 
   searchForm: FormGroup = this.fb.group({
     search: [''],
+  });
+
+  contactoForm: FormGroup = this.fb.group({
+    nombres: [''],
+    reserva_id: [''],
+    telefono: ['']
   });
 
   hasError(field: string): boolean {
@@ -53,6 +61,7 @@ export class ModalComponent implements OnInit {
 
   onClose(): void {
     this.dialogRef.close();
+    this.registroEncontrado = [];
   }
 
   ngOnInit(): void {
@@ -78,22 +87,38 @@ export class ModalComponent implements OnInit {
 
   guardarReserva(): void {
     // Encontrar el primer registro con el ID buscado
-    const registroEncontrado = this.habitaciones.find(registro => registro.id === this.habitacionId);
+    this.registroEncontrado = this.habitaciones.find(registro => registro.id === this.habitacionId);
     const data = {
       habitacion_id: this.habitacionId,
       pasajero_id: 1,
       fecha_entrada: this.reservaForm.get('fecha_entrada')?.value,
       fecha_salida: this.reservaForm.get('fecha_salida')?.value,
       usuario_email: 'ale@gmail.com',
-      monto_total: registroEncontrado?.costo_base,
+      monto_total: this.registroEncontrado?.costo_base,
       estado: 'pendiente'
 
     };
     console.log(data);
     this.clasificacionHotelesService.createHotel(data).subscribe(response => {
       this.showSuccessToast('¡Reserva creada con exito!');
-      console.log('crear hpotel: ', response);
+      if(response.id) {
+        const dataContacto = {
+          reserva_id: response.id,
+          nombres: this.contactoForm.get('nombre')?.value,
+          telefono: this.contactoForm.get('telefono')?.value
+        };
+        this.contactoForm.get('reserva_id')?.setValue(response.id);
+      }
+      // console.log('crear hpotel: ', response);
     });
+  }
+
+  guardarcontactoEmrgencia(): void {
+    this.clasificacionHotelesService.crearContactoEmergencia(this.contactoForm.value).subscribe(response => {
+      this.showSuccessToast('¡Se asigno este como contacto de emergencia a esta rserva!');
+
+    });
+    console.log(this.contactoForm.value);
   }
 
   private loadHabitaciones(hotel_id: number, page: number, search?: string): void {
@@ -104,7 +129,6 @@ export class ModalComponent implements OnInit {
       this.totalPages = response.last_page;
       this.perPage = response.per_page;
       this.totalItems = response.total;
-      // console.log('habitaciones: ', response);
     });
   }
 
