@@ -44,7 +44,7 @@ export class AppSideRegisterComponent {
 
   private handleResponse(response: any):void {
     this.tokenService.handleToken(response.token)
-    this.tokenService.handleUsers(response.token)
+    this.router.navigateByUrl('/');
   }
 
   private handleErrors(errors:any): void {
