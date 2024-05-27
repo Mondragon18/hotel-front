@@ -81,9 +81,9 @@ export class ModalComponent implements OnInit {
       fecha_entrada: this.reservaForm.get('fecha_entrada'),
       fecha_salida: this.reservaForm.get('fecha_salida')
     };
-    this.clasificacionHotelesService.getHabitacionOrHotel(hotel_id, query).subscribe(response => {
+    // this.clasificacionHotelesService.getHabitacionOrHotel(data).subscribe(response => {
 
-    }
+    // }
   }
 
   private loadHabitaciones(hotel_id: number, page: number, search?: string): void {
