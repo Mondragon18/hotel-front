@@ -52,16 +52,25 @@ export class ModalComponent {
     this.dialogRef.close();
   }
 
-  ngOnInit () {
+  ngOnInit(): void {
     this.loadDataIntoForm();
+    this.watchSearchField();
+  }
+
+  watchSearchField(): void {
+    this.hotelForm.get('search')?.valueChanges.subscribe(value => {
+      console.log('El valor del campo de búsqueda ha cambiado:', value);
+      this.loadhabitaciones(1, value);
+    });
   }
 
   private loadDataIntoForm () : void {
-    this.loadhabitaciones(this.data.hotelId);
+    this.loadhabitaciones(this.data.hotelId, '');
   }
 
-  private loadhabitaciones (habitacionId: number) {
-    this.ClasificacionHotelesService.getHabitacions(habitacionId).subscribe(response => {
+  private loadhabitaciones (page: number = 1, search?: String) {
+    const query = `page=${page}&search=${search}`;
+    this.ClasificacionHotelesService.getHabitacions(query).subscribe(response => {
       this.habitaciones = response.data;
       this.currentPage = response.current_page;
       this.totalPages = response.last_page;
