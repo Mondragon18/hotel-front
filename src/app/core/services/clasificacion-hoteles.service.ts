@@ -15,11 +15,15 @@ export class ClasificacionHotelesService {
     private http: HttpClient
   ) { }
 
-  getHotels(page: number = 1): Observable<PaginatedResponse<Hotel>> {
-    return this.http.get<PaginatedResponse<Hotel>>(`${this.API_URL}/hoteles?page=${page}`);
+  getHotels(query: String = 'page=1'): Observable<PaginatedResponse<Hotel>> {
+    return this.http.get<PaginatedResponse<Hotel>>(`${this.API_URL}/hoteles?${query}`);
   }
 
-  getHabitacions(page: number = 1): Observable<PaginatedResponse<Habitacion>> {
-    return this.http.get<PaginatedResponse<Habitacion>>(`${this.API_URL}/habitaciones?page=${page}`);
+  getHabitacions(query: String ='page=1'): Observable<PaginatedResponse<Habitacion>> {
+    return this.http.get<PaginatedResponse<Habitacion>>(`${this.API_URL}/habitaciones?${query}`);
+  }
+
+  getHabitacionOrHotel(id_hotel: number , query: String ='page=1'): Observable<PaginatedResponse<Habitacion>> {
+    return this.http.get<PaginatedResponse<Habitacion>>(`${this.API_URL}/hoteles/${id_hotel}/habitaciones?${query}`);
   }
 }

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
@@ -15,34 +15,35 @@ import { Habitacion } from 'src/app/core/models/habitaciones.models';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatDialogModule],
   templateUrl: './modal.component.html',
-  styleUrl: './modal.component.scss',
+  styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent {
-
+export class ModalComponent implements OnInit {
   habitaciones: Habitacion[] = [];
   currentPage: number = 1;
   totalPages: number = 0;
   perPage: number = 10;
   totalItems: number = 0;
   pageNumbers: number[] = [];
+  showForm: boolean = false;
+  reservaForm!: FormGroup;
 
   constructor(
-    private ClasificacionHotelesService:  ClasificacionHotelesService,
+    private clasificacionHotelesService: ClasificacionHotelesService,
     public dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: { hotelId: number; habitacionId?: number }
+    public data: { hotelId: number; filtros: any },
+    private fb: FormBuilder
   ) {}
 
-  hotelForm: FormGroup = new FormGroup({
-    search : new FormControl(''),
-  })
-
+  searchForm: FormGroup = this.fb.group({
+    search: [''],
+  });
 
   hasError(field: string): boolean {
-    const errorsObjetc = this.hotelForm.get(field)?.errors ?? {};
+    const errorsObjetc = this.searchForm.get(field)?.errors ?? {};
     const errors = Object.keys(errorsObjetc);
 
-    if(errors.length && (this.hotelForm.get(field)?.touched || this.hotelForm.get(field)?.dirty)){
+    if (errors.length && (this.searchForm.get(field)?.touched || this.searchForm.get(field)?.dirty)) {
       return true;
     }
     return false;
@@ -52,22 +53,48 @@ export class ModalComponent {
     this.dialogRef.close();
   }
 
-  ngOnInit () {
+  ngOnInit(): void {
+    this.reservaForm = this.fb.group({
+      fecha_entrada: [this.data.filtros.fecha_entrada],
+      fecha_salida: [this.data.filtros.fecha_salida],
+      // Agrega aquí otros campos que necesites
+    });
     this.loadDataIntoForm();
+    this.watchSearchField();
   }
 
-  private loadDataIntoForm () : void {
-    this.loadhabitaciones(this.data.hotelId);
+  watchSearchField(): void {
+    this.searchForm.get('search')?.valueChanges.subscribe(value => {
+      console.log('El valor del campo de búsqueda ha cambiado:', value);
+      this.loadHabitaciones(this.data.hotelId, 1, value);
+    });
   }
 
-  private loadhabitaciones (habitacionId: number) {
-    this.ClasificacionHotelesService.getHabitacions(habitacionId).subscribe(response => {
+  private loadDataIntoForm(): void {
+    this.loadHabitaciones(this.data.hotelId, 1, '');
+  }
+
+  private guardarReserva(): void {
+    const data = {
+      id_habitacion: '',
+      id_hote: '',
+      fecha_entrada: this.reservaForm.get('fecha_entrada'),
+      fecha_salida: this.reservaForm.get('fecha_salida')
+    };
+    this.clasificacionHotelesService.getHabitacionOrHotel(hotel_id, query).subscribe(response => {
+
+    }
+  }
+
+  private loadHabitaciones(hotel_id: number, page: number, search?: string): void {
+    const query = `page=${page}&query=${search}`;
+    this.clasificacionHotelesService.getHabitacionOrHotel(hotel_id, query).subscribe(response => {
       this.habitaciones = response.data;
       this.currentPage = response.current_page;
       this.totalPages = response.last_page;
       this.perPage = response.per_page;
       this.totalItems = response.total;
-      console.log('habitaciones: ', response);
+      // console.log('habitaciones: ', response);
     });
   }
 }
