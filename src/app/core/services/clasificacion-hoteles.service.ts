@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PaginatedResponse } from '../models/hoteles.models';
 import { Hotel } from '../models/clasificacion-hoteles.model';
 import { Habitacion } from '../models/habitaciones.models';
+import { ContactoEmergencia } from '../models/contacto.emergencia.models';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,8 @@ export class ClasificacionHotelesService {
 
   createHotel(data: any):Observable<Hotel> {
     return this.http.post<Hotel>(`${this.API_URL}/reservas`, data);
+  }
+  crearContactoEmergencia(data: any): Observable<ContactoEmergencia> {
+    return this.http.post<ContactoEmergencia>(`${this.API_URL}/conatcto_emergencia`, data);
   }
 }
