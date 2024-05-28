@@ -30,7 +30,19 @@ jobs:
       - name: Build run
         run: npm run build
       
-     
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}   
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'UltraSuite'
+          slot-name: 'production'
+          package: '${{ github.workspace }}/build'
+
+          
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
