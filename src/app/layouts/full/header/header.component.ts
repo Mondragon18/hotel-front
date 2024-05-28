@@ -25,10 +25,6 @@ export class HeaderComponent implements OnInit  {
 
   showFiller = false;
 
-  nombre: string = '';
-  apellido: string = '';
-  email: string = '';
-
   usuario: any;
 
   constructor(
@@ -38,9 +34,5 @@ export class HeaderComponent implements OnInit  {
 
   ngOnInit(): void {
     this.usuario = this.tokenService.getUsers();
-    
-    // this.nombre = this.tokenService.getUsers()?.nombres;
-    // this.apellido = this.tokenService.getUsers()?.apellidos;
-    // this.email = this.tokenService.getUsers()?.email;
   }
 }

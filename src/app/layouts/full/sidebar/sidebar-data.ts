@@ -12,11 +12,6 @@ export const navItems: NavItem[] = [
     route: '/reservas',
   }, 
   // {
-  //   displayName: 'Clasificacion Hotelera',
-  //   iconName: 'building-skyscraper',
-  //   route: '/calificacion_hoteles',
-  // },
-  // {
   //   navCap: 'Ui Components',
   // },
   // {
@@ -76,6 +71,6 @@ export const navPasajero: NavItem[] = [
   {
     displayName: 'Hoteles',
     iconName: 'building-skyscraper',
-    route: '/calificacion_hoteles',
+    route: '/agenda/tu/hotel/preferido',
   },
 ];

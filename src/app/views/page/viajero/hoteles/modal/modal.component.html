@@ -1,0 +1,219 @@
+<div class="px-4 pt-3 d-flex justify-content-between" *ngIf="totalItems">
+  <div class="mb-0 flex-column d-flex ">
+    <h5 class="truncar-tx" style="width: 300px !important;
+    display: inline-block;">
+      Hotel {{data.nombre}}
+    </h5>
+    <span class="mb-0 txt-12">({{totalItems}} habitacion del hotel en total)</span>
+  </div>
+  <mat-dialog-actions class="float-end">
+    <button mat-button (click)="onClose()" class="btn-close"></button>
+  </mat-dialog-actions>
+</div>
+<div>
+  <mat-dialog-content>
+    <div class="row" *ngIf="!showForm; else showFormTemplate">
+      <div class="form-group col-12" [formGroup]="searchForm">
+        <div class="input-group">
+          <input class="form-control form-contro-sm rounded-s-pill txt-12 {{ hasError('search') ? 'is-invalid' : '' }}"
+            id="search" formControlName="search" type="text" placeholder="busca por tipo de habitacion" />
+          <span class="input-group-text rounded-e-pill">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+              <path d="M21 21l-6 -6"></path>
+            </svg>
+          </span>
+        </div>
+      </div>
+      <div class="col-12" *ngIf="habitaciones.length > 0; else noHabitacion">
+        <div *ngFor="let habitacion of habitaciones" class="border-bottom">
+          <div class="d-flex justify-content-star gap-2 p-2">
+            <img src="./assets/images/hotel/cama.png" width="54" height="54" class="rounded w-auto d-block"
+              alt="Habitación 1" />
+            <div class="w-100">
+              <div class="d-flex justify-content-between">
+                <div class="w-100">
+                  <h5 class="card-title mb-0 txt-16 fw-semibold truncar-tx" style="width: 380px;">
+                    Habitación N° {{ habitacion.id }}
+                  </h5>
+                  <p class="card-text txt-14 truncar-tx mb-0" style="width: 380px;">{{ habitacion.tipo }}</p>
+                  <p class="card-text txt-12 truncar-tx mb-0" style="width: 380px;">{{ habitacion.descripcion }}</p>
+                </div>
+                <div
+                  class="w-auto txt-24 d-flex fw-bold justify-content-center align-items-center badge text-bg-light border px-1"
+                  style="height: 40px;">
+                  {{habitacion.numero_persona}}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-users">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                    <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                  </svg>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="align-self-end txt-12">
+                  <div>
+                    <span class="badge text-bg-success me-1">Costo: {{ habitacion.costo_base}}</span>
+                    <span class="badge text-bg-success">impuesto: {{ habitacion.impuestos }}</span>
+                  </div>
+                  <span class="badge text-bg-primary"
+                    [ngClass]="{'text-bg-success': habitacion.activo, 'text-bg-danger': !habitacion.activo}">
+                    {{ habitacion.activo ? 'Disponible' : 'Sin disponibilidad' }}
+                  </span>
+                </div>
+                <div *ngIf="!usuario.id">
+                  <a LinkRouter="/login" class="btn btn-sm border-1 float-end">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      class="icon icon-tabler icons-tabler-outline icon-tabler-hotel-service">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path
+                        d="M8.5 10a1.5 1.5 0 0 1 -1.5 -1.5a5.5 5.5 0 0 1 11 0v10.5a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2c0 -1.38 .71 -2.444 1.88 -3.175l4.424 -2.765c1.055 -.66 1.696 -1.316 1.696 -2.56a2.5 2.5 0 1 0 -5 0a1.5 1.5 0 0 1 -1.5 1.5z" />
+                    </svg>
+                    Reservar
+                  </a>
+                </div>
+                <a *ngIf="persona" href="javascript:void(0);" class="btn btn-sm border-1 float-end"
+                  (click)="showForm = true; habitacionId = habitacion.id">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-hotel-service">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path
+                      d="M8.5 10a1.5 1.5 0 0 1 -1.5 -1.5a5.5 5.5 0 0 1 11 0v10.5a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2c0 -1.38 .71 -2.444 1.88 -3.175l4.424 -2.765c1.055 -.66 1.696 -1.316 1.696 -2.56a2.5 2.5 0 1 0 -5 0a1.5 1.5 0 0 1 -1.5 1.5z" />
+                  </svg>
+                  Reservar
+                </a>
+                <a *ngIf="!persona" href="javascript:void(0);" class="btn btn-sm border-1 float-end"
+                  (click)="showForm = true; habitacionId = habitacion.id">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-hotel-service">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path
+                      d="M8.5 10a1.5 1.5 0 0 1 -1.5 -1.5a5.5 5.5 0 0 1 11 0v10.5a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2c0 -1.38 .71 -2.444 1.88 -3.175l4.424 -2.765c1.055 -.66 1.696 -1.316 1.696 -2.56a2.5 2.5 0 1 0 -5 0a1.5 1.5 0 0 1 -1.5 1.5z" />
+                  </svg>
+                  Registra tu perfil
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #noHabitacion>
+        <p class="text-center w-100 mt-3">No hay habitaciones disponibles.</p>
+      </ng-template>
+    </div>
+
+    <ng-template #showFormTemplate>
+      <div >
+        <div class="mb-3">
+          <a href="javascript:void()" class="btn btn-sm border-1 btn-ligth" (click)="showForm = false">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back-up">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M9 14l-4 -4l4 -4" />
+              <path d="M5 10h11a4 4 0 1 1 0 8h-1" />
+            </svg>
+            Regresar
+          </a>
+        </div>
+
+        <div *ngIf="persona">
+          <div class="row" [formGroup]="reservaForm">
+            <div class="form-group col-12 col-md-6 pe-md-1">
+              <label class="fw-bold color-5" for="checkin">Fecha entrada:</label>
+              <input type="date" id="checkin" class="form-control form-control-sm border-1"
+                formControlName="fecha_entrada">
+            </div>
+            <div class="form-group col-12 col-md-6 ps-md-1">
+              <label class="fw-bold color-5" for="checkin">Fecha salida:</label>
+              <input type="date" id="checkin" class="form-control form-control-sm border-1"
+                formControlName="fecha_salida">
+            </div>
+
+            <div class="col-12 row m-0 p-0" [formGroup]="contactoForm">
+              <h6 class="fw-bold mb-0">Contacto de emergencias</h6>
+              <div class="form-group col-6 pe-md-1">
+                <label class="fw-bold color-5" for="checkin">Nombre:</label>
+                <input type="text" id="checkin" class="form-control form-control-sm border-1" formControlName="nombres">
+              </div>
+              <div class="form-group col-6 ps-md-1">
+                <label class="fw-bold color-5" for="checkin">Telefono:</label>
+                <input type="text" id="checkin" class="form-control form-control-sm border-1"
+                  formControlName="telefono">
+              </div>
+            </div>
+            <div class="col-12 d-flex justify-content-end w-100 mt-3">
+              <button type="button" class="btn btn-sm btn-ligth border-1" (click)="guardarReserva()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline icon-tabler-hotel-service">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M8.5 10a1.5 1.5 0 0 1 -1.5 -1.5a5.5 5.5 0 0 1 11 0v10.5a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2c0 -1.38 .71 -2.444 1.88 -3.175l4.424 -2.765c1.055 -.66 1.696 -1.316 1.696 -2.56a2.5 2.5 0 1 0 -5 0a1.5 1.5 0 0 1 -1.5 1.5z" />
+                </svg>
+                Reservar habitación
+              </button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!persona">
+          <div class="row" [formGroup]="personaForm">
+            <div class="form-group col-6 pe-md-1">
+              <label class="fw-bold color-5" for="checkin">Numero documento:</label>
+              <input type="text" id="checkin" class="form-control form-control-sm border-1"
+                formControlName="numero_documento">
+            </div>
+            <div class="form-group col-6 pe-md-1">
+              <label class="fw-bold color-5" for="tipo_documento">Tipo de documento: </label>
+              <select class="form-select form-control form-control-sm border-1" id="tipo_documento"
+                formControlName="tipo_documento">
+                <option *ngFor="let option of documentoList" [value]="option">{{ option }}</option>
+              </select>
+            </div>
+            <div class="form-group col-4 pe-md-1">
+              <label class="fw-bold color-5" for="checkin">Telefono/Celular:</label>
+              <input type="text" id="checkin" class="form-control form-control-sm border-1" formControlName="telefono">
+            </div>
+            <div class="form-group col-4 pe-md-1">
+              <label class="fw-bold color-5" for="genero">Genero: </label>
+              <select class="form-select form-control form-control-sm border-1" id="genero" formControlName="genero">
+                <option value="">Seleccione el genero</option>
+                <option *ngFor="let option of generoList" [value]="option">{{ option }}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-12 col-md-4 pe-md-1">
+              <label class="fw-bold color-5" for="checkin">Fecha nacimiento:</label>
+              <input type="date" id="checkin" class="form-control form-control-sm border-1"
+                formControlName="fecha_nacimiento">
+            </div>
+
+            <div class="col-12 d-flex justify-content-end w-100 mt-3">
+              <button type="button" class="btn btn-sm btn-ligth border-1" (click)="guardarPersona()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline icon-tabler-hotel-service">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M8.5 10a1.5 1.5 0 0 1 -1.5 -1.5a5.5 5.5 0 0 1 11 0v10.5a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2c0 -1.38 .71 -2.444 1.88 -3.175l4.424 -2.765c1.055 -.66 1.696 -1.316 1.696 -2.56a2.5 2.5 0 1 0 -5 0a1.5 1.5 0 0 1 -1.5 1.5z" />
+                </svg>
+                Crear perfil
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+  </mat-dialog-content>
+</div>

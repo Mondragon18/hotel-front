@@ -36,7 +36,12 @@ export class AppSideLoginComponent {
   private handleResponse(response: any):void {
     this.tokenService.handleToken(response.token);
     this.tokenService.handleUsers(response.user);
-    this.router.navigateByUrl('/');
+    if(response.user.persona == 'agente') {
+      this.router.navigateByUrl('/');
+    } else {
+      this.tokenService.handlePersona(response.persona);
+      this.router.navigateByUrl('/agenda/tu/hotel/preferido');
+    }
   }
 
   private handleErrors(errors:any): void {

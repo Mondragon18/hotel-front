@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Hotel } from 'src/app/core/models/clasificacion-hoteles.model';
 import { ClasificacionHotelesService } from 'src/app/core/services/clasificacion-hoteles.service';
@@ -9,7 +9,7 @@ import { ModalComponent } from './modal/modal.component';
 @Component({
   selector: 'app-clasificacion-hoteles',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './clasificacion-hoteles.component.html',
   styleUrls: ['./clasificacion-hoteles.component.scss']
 })
@@ -22,6 +22,10 @@ export class ClasificacionHotelesComponent implements OnInit {
   totalItems: number = 0;
   pageNumbers: number[] = [];
   ciudades: string[] = ['Bogotá','Medellín','Cali','Barranquilla','Cartagena','Cúcuta','Bucaramanga','Pereira','Santa Marta','Ibagué','Manizales','Villavicencio','Pasto','Montería','Armenia','Neiva','Popayán','Sincelejo','Valledupar','Tunja'];
+
+  page: number = 1; // Numero de pagina
+  limit:number = 10; // Limite de paginación
+  paginationLimits: number[] = [1, 5, 10, 20, 50, 100]; // Opciones de límite de paginación
 
   hotelForm: FormGroup = new FormGroup({
     search: new FormControl(''),
@@ -73,11 +77,11 @@ export class ClasificacionHotelesComponent implements OnInit {
     });
   }
 
-  openModal(habitacionId?: number): void {
+  openModal(habitacionId?: number, nombre?: string): void {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '50%',
       height: 'auto',
-      data: { hotelId: habitacionId, filtros:  this.hotelForm.value }
+      data: { hotelId: habitacionId, nombre: nombre,  filtros:  this.hotelForm.value }
     });
 
     dialogRef.afterOpened().subscribe(() => {
@@ -99,6 +103,13 @@ export class ClasificacionHotelesComponent implements OnInit {
     return errors.length ? errors[0] : '';
   }
 
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.page = page;
+      this.loadHoteles();
+    }
+  }
+
   updatePageNumbers(): void {
     const pageCount = 5;
     const startPage = Math.max(this.currentPage - Math.floor(pageCount / 2), 1);
@@ -108,5 +119,9 @@ export class ClasificacionHotelesComponent implements OnInit {
     for (let i = startPage; i <= endPage; i++) {
       this.pageNumbers.push(i);
     }
+  }
+
+  limitHoteles():void {
+    this.loadHoteles();
   }
 }

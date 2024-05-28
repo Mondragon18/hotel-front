@@ -106,7 +106,6 @@ export class HotelesFormComponent implements OnInit {
 
     // Crear un nuevo objeto para enviar al servidor, copiando los otros campos del formulario
     const datosFormulario = { ...this.hotelForm.value, servicios: serviciosJSON };
-    console.log(datosFormulario);
     // if (this.selectedImages) {
     //   this.hotelForm.patchValue({ imagenes: this.selectedImages });
     // }
