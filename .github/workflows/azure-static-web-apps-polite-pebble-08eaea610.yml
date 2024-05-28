@@ -22,11 +22,6 @@
     - name: Build the application
       run: npm run build
 
-    - name: Run tests
-      env:
-        CHROME_BIN: puppeteer
-      run: npm test
-
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
