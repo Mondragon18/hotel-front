@@ -5,13 +5,14 @@ import { PaginatedResponse } from '../models/hoteles.models';
 import { Hotel } from '../models/clasificacion-hoteles.model';
 import { Habitacion } from '../models/habitaciones.models';
 import { ContactoEmergencia } from '../models/contacto.emergencia.models';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClasificacionHotelesService {
 
-  private readonly API_URL = 'http://127.0.0.1:8000/api';
+  private readonly API_URL = environment.base_url;
   constructor(
     private http: HttpClient
   ) { }

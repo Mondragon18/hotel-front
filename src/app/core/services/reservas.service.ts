@@ -12,7 +12,6 @@ const API_URL = environment.base_url
 })
 export class ReservasService {
 
-  private readonly API_URL = 'http://127.0.0.1:8000/api';
   constructor(
     private http: HttpClient
   ) { }
