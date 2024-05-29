@@ -1,0 +1,95 @@
+$bg-1: #f6f8fedc;
+$bg-2: #DAE0FC;
+$bg-3: #FCD3CC;
+$bg-4: #FCE9D5;
+$bg-5: #DCE1FC;
+
+$color-1: #EC3B3B;
+$color-2: #E9981F;
+$color-3: #415BE7;
+$color-4: #EAEEFD;
+$color-5: #121212;
+$color-6: #929292;
+
+$color-7: #b7d6f2;
+$color-7: #a2a4e7;
+$color-7: #bc62b6;
+
+.bg-1 {
+  background-color: #F7F8FE;
+}
+
+.bg-2 {
+  background-color: $bg-2;
+}
+
+.bg-3 {
+  background-color: $bg-3;
+}
+
+.bg-4 {
+  background-color: $bg-4;
+}
+
+.bg-5 {
+  background-color: $bg-5;
+}
+
+.bg-6 {
+  background-color: $color-7;
+
+}
+
+.bg-7 {
+  background-color: #FFF;
+}
+
+
+.color-1 {
+  color: $color-1;
+}
+
+.color-2 {
+  color: $color-2;
+}
+
+.color-3 {
+  color: $color-3;
+}
+
+.color-4 {
+  color: $color-4;
+}
+
+.color-5 {
+  color: $color-5;
+}
+
+.color-6 {
+  color: $color-6;
+}
+
+// .border-1 {
+//   $color-6: #858080;
+// }
+
+hr {
+  border: solid $color-6;
+}
+
+.border-1 {
+  border: .5px solid $color-6 !important;
+}
+
+
+.cb-1 {
+  border:  #EC3B3B !important;
+}
+
+.cb-2 {
+  border:  $color-2 !important;
+}
+
+.cb-3 {
+  border:  $color-3 !important;
+}
